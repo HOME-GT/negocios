@@ -13,15 +13,15 @@ class Departamento extends Migration
      */
     public function up()
     {
-        Schema::create('departamento', function (Blueprint $table) {
-            $table->bigIncrements('depa_id_pk');
-            $table->string('codigo',10)->nullable();
-            $table->string('nombre',50)->unique();
-            $table->boolean('estado')->default(true);            
-            $table->unsignedBigInteger('pais_fk');
-            $table->foreign('pais_fk')->references('id')->on('pais');
-            $table->timestamp('fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        Schema::create('cat_departamento', function (Blueprint $table) {
+            $table->bigIncrements('dep_id');
+            $table->string('dep_codigo',10)->nullable();
+            $table->string('dep_nombre',50)->unique();
+            $table->boolean('dep_estado')->default(true);            
+            $table->unsignedBigInteger('dep_pai_fk');
+            $table->foreign('dep_pai_fk')->references('pai_id')->on('cat_pais');
+            $table->timestamp('dep_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('dep_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 
@@ -32,6 +32,6 @@ class Departamento extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departamento');
+        Schema::dropIfExists('cat_departamento');
     }
 }

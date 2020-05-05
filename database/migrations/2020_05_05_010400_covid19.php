@@ -13,13 +13,13 @@ class Covid19 extends Migration
      */
     public function up()
     {
-        Schema::create('covid19', function (Blueprint $table) {
-            $table->bigIncrements('id');            
-            $table->boolean('mascarilla')->default(true);
-            $table->boolean('guantes')->default(true);                    
-            $table->boolean('alcohol_gel')->default(true);                    
-            $table->timestamp('fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
+        Schema::create('neg_covid19', function (Blueprint $table) {
+            $table->bigIncrements('cov_id');            
+            $table->boolean('cov_mascarilla')->default(true);
+            $table->boolean('cov_guantes')->default(true);                    
+            $table->boolean('cov_alcohol_gel')->default(true);                    
+            $table->timestamp('cov_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('cov_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
        });
     }
 
@@ -30,6 +30,6 @@ class Covid19 extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('covid19');
+        Schema::dropIfExists('cov_covid19');
     }
 }

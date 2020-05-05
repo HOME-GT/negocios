@@ -21,7 +21,9 @@ class Usuarios extends Migration
             $table->string('usu_cui',20)->unique();
             $table->string('usu_clave');
             $table->string('usu_telefono',20);
-            $table->boolean('usu_estado')->default(true);            
+            $table->boolean('usu_estado')->default(true);   
+            $table->timestamp('usu_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('usu_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));         
         });
     }
 

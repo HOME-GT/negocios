@@ -13,15 +13,15 @@ class Ubicacion extends Migration
      */
     public function up()
     {
-        Schema::create('ubicacion', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('codigo',10)->nullable();
-            $table->string('nombre',50)->unique();
-            $table->boolean('estado')->default(true);            
-            $table->unsignedBigInteger('muni_fk');
-            $table->foreign('muni_fk')->references('id')->on('municipio');
-            $table->timestamp('fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        Schema::create('cat_ubicacion', function (Blueprint $table) {
+            $table->bigIncrements('ubi_id');
+            $table->string('ubi_codigo',10)->nullable();
+            $table->string('ubi_nombre',50)->unique();
+            $table->boolean('ubi_estado')->default(true);            
+            $table->unsignedBigInteger('ubi_mun_fk');
+            $table->foreign('ubi_mun_fk')->references('mun_id')->on('cat_municipio');
+            $table->timestamp('ubi_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('ubi_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 
@@ -32,6 +32,6 @@ class Ubicacion extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ubicacion');
+        Schema::dropIfExists('cat_ubicacion');
     }
 }
