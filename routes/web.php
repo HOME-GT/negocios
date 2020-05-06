@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login-post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/', function(){
-    return view('web.Home.Index');
+Route::namespace('Web')->group(function(){
+    Route::name('web.')->group(function(){
+        Route::get('/', 'HomeController@showIndex')->name("home");
+        Route::get('resultados', 'HomeController@showResultados')->name("resultados");
+        Route::get('como-funciona', 'HomeController@showComoFunciona')->name("comofunciona");
+    });
 });
