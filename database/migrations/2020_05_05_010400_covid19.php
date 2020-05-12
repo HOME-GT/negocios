@@ -14,12 +14,13 @@ class Covid19 extends Migration
     public function up()
     {
         Schema::create('neg_covid19', function (Blueprint $table) {
-            $table->bigIncrements('cov_id');            
+            $table->bigIncrements('cov_id');
             $table->boolean('cov_mascarilla')->default(true);
-            $table->boolean('cov_guantes')->default(true);                    
-            $table->boolean('cov_alcohol_gel')->default(true);                    
+            $table->boolean('cov_guantes')->default(true);
+            $table->boolean('cov_alcohol_gel')->default(true);
+            $table->string('cov_procedimiento')->nullable();
             $table->timestamp('cov_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('cov_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
+            $table->timestamp('cov_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 

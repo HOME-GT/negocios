@@ -14,12 +14,12 @@ class Horarios extends Migration
     public function up()
     {
         Schema::create('neg_horario', function (Blueprint $table) {
-            $table->bigIncrements('hor_id'); 
+            $table->bigIncrements('hor_id');
             $table->integer('hor_dia');
             $table->time('hor_inicio');
-            $table->time('hor_fin');                    
+            $table->time('hor_fin');
             $table->timestamp('hor_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('hor_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
+            $table->timestamp('hor_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 

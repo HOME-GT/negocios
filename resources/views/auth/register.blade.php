@@ -2,42 +2,102 @@
 
 @section('Main')
     <div class="form-signin d-flex align-items-center justify-content-center" id="registro">
-        <form class="text-center shadow-sm p-4 bg-white rounded">
+        <form class="text-center shadow-sm p-4 bg-white rounded" action="{{ route("registro.post") }}" method="POST">
+            @csrf
+
             <img class="mb-4" src=" {{ asset("imagenes/logo_home_color.svg") }} " alt="" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Registro</h1>
 
-            <label for="nombres" class="sr-only">Nombre(s)</label>
-            <input type="text" id="nombres" name="nombre" class="form-control" placeholder="Nombre (S)" autofocus>
+            @if(session()->has('success'))
+                @if(session('success'))
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-success py-3">
+                                    <i class="mdi mdi-checkbox-marked"></i> Operación Exitosa!</a>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger py-3">
+                                    <i class="mdi mdi-close-box"></i> {{ session("message") }} </a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endif
+
+            <label for="nombres" class="sr-only">Nombre(s) <span class="text-danger">*</span> </label>
+            <input type="text" id="nombres" name="nombres" class="form-control {{ $errors->has('nombres') ? ' is-invalid' : '' }}" value="{{ old('nombres') }}" placeholder="Nombre (S)*" autofocus>
+            @if ($errors->has('nombres'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('nombres') }}</span>
+                </span>
+            @endif
 
             <label for="apellidos" class="sr-only">Apellidos(s)</label>
-            <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos (s)" >
+            <input type="text" id="apellidos" name="apellidos" class="form-control {{ $errors->has('apellidos') ? ' is-invalid' : '' }}" value="{{ old('apellidos') }}"  placeholder="Apellidos (s)" >
+            @if ($errors->has('apellidos'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('apellidos') }}</span>
+                </span>
+            @endif
 
-            <label for="cui" class="sr-only">CUI</label>
-            <input type="text" id="cui" name="cui" class="form-control" placeholder="CUI" >
+            <label for="cui" class="sr-only">CUI <span class="text-danger">*</span></label>
+            <input type="text" id="cui" name="cui" class="form-control {{ $errors->has('cui') ? ' is-invalid' : '' }}" value="{{ old('cui') }}"  placeholder="CUI*" >
+            @if ($errors->has('cui'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('cui') }}</span>
+                </span>
+            @endif
 
-            <label for="correo" class="sr-only">Correo</label>
-            <input type="text" id="correo" name="correo" class="form-control" placeholder="Correo" >
+            <label for="correo" class="sr-only">Correo <span class="text-danger">*</span></label>
+            <input type="text" id="correo" name="correo" class="form-control {{ $errors->has('correo') ? ' is-invalid' : '' }}" value="{{ old('correo') }}"  placeholder="Correo*" >
+            @if ($errors->has('correo'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('correo') }}</span>
+                </span>
+            @endif
 
             <label for="telefono" class="sr-only">Teléfono</label>
-            <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Teléfono">
+            <input type="text" id="telefono" name="telefono" class="form-control {{ $errors->has('telefono') ? ' is-invalid' : '' }}" value="{{ old('telefono') }}"  placeholder="Teléfono">
+            @if ($errors->has('telefono'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('telefono') }}</span>
+                </span>
+            @endif
 
-            <label for="clave" class="sr-only">Contraseña</label>
-            <input type="password" id="clave" name="clave" class="form-control" placeholder="Contraseña">
+            <label for="clave" class="sr-only">Contraseña <span class="text-danger">*</span></label>
+            <input type="password" id="clave" name="clave" class="form-control {{ $errors->has('clave') ? ' is-invalid' : '' }}" value="{{ old('clave') }}"  placeholder="Contraseña*">
+            @if ($errors->has('clave'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('clave') }}</span>
+                </span>
+            @endif
 
-            <label for="confirmacion_clave" class="sr-only">Confirmación de Contraseña</label>
-            <input type="password" id="confirmacion_clave" name="confirmacion_clave" class="form-control" placeholder="Confirmación de contraseña">
+            <label for="clave_confirmacion" class="sr-only">Confirmación de Contraseña <span class="text-danger">*</span></label>
+            <input type="password" id="clave_confirmacion" name="clave_confirmacion" class="form-control {{ $errors->has('clave_confirmacion') ? ' is-invalid' : '' }}" value="{{ old('clave_confirmacion') }}"  placeholder="Confirmación de contraseña*">
+            @if ($errors->has('clave_confirmacion'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('clave_confirmacion') }}</span>
+                </span>
+            @endif
 
             <div class="checkbox text-left">
                 <label>
-                    <input type="checkbox" name="acuerdos" id="acuerdos"> Aceptar terminos y condiciones
+                    <input type="checkbox" name="acuerdos" id="acuerdos" {{ old('acuerdos') ? 'checked' : '' }}> Aceptar terminos y condiciones <span class="text-danger">*</span>
                 </label>
+                @if ($errors->has('acuerdos'))
+                <div class="text-danger text-left">
+                    <span>{{ $errors->first('acuerdos') }}</span>
+                </div>
+            @endif
             </div>
 
             <div class="mt-0 text-left mb-2 terminos">
-                <a href="#">Leer terminos y condiciones <i class="fa fa-arrow-right"></i></a>
+                <a href="{{ route("acuerdos.get") }}" target="_blank">Leer terminos y condiciones <i class="fa fa-arrow-right"></i></a>
             </div>
-
-            <div class="g-recaptcha" data-sitekey="6LfyGvMUAAAAAFyaVyl3VqZJ9eJsju1PoA0BL3G4"></div>
 
             <button class="btn btn-dark btn-block mt-2" type="submit">Registro</button>
             <div class="text-left">

@@ -8,7 +8,7 @@ class pais extends Model
 {
      const CREATED_AT = null;
      const UPDATED_AT = null;
-     protected $primaryKey = 'pai_id';
+     protected $primaryKey = 'pais_id';
      protected $table = 'cat_pais';
 
     /**

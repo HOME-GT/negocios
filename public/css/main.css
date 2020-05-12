@@ -68,7 +68,7 @@ body {
     background: #212529 !important;
     background-color: #212529 !important;
 }
-/* .nav-scroller {
+ .nav-scroller {
   position: relative;
   z-index: 2;
   height: 2.75rem;
@@ -103,7 +103,7 @@ body {
 .nav-underline .active {
   font-weight: 500;
   color: #343a40;
-} */
+}
 
 .offcanvas-collapse .navbar-nav .nav-item .nav-link{
     font-size: 0.8rem;

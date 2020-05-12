@@ -18,13 +18,13 @@
                         <h3 class="masthead-brand">NegociosGT</h3>
                         <nav class="nav nav-masthead justify-content-center">
                             <a class="nav-link" href=" {{ route("web.comofunciona") }} ">¿Cómo funciona?</a>
-                            <a class="nav-link" href="#">Nuevo Negocio</a>
+                            <a class="nav-link" href="  {{ route("app.negocio.nuevo.get") }} ">Nuevo Negocio</a>
                             @if(!Auth::check())
                                 <a class="nav-link" href="{{ route("login") }}">Login</a>
                             @else
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown pl-2">
                                     <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Wesner Ché
+                                        {{ Auth::user()->usu_nombres }} {{ Auth::user()->usu_apellidos }}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="usuarioDropdown">
                                         <a class="dropdown-item" href="#">Perfil</a>

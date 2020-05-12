@@ -14,7 +14,7 @@ class Contacto extends Migration
     public function up()
     {
         Schema::create('neg_contacto', function (Blueprint $table) {
-            $table->bigIncrements('con_id'); 
+            $table->bigIncrements('con_id');
             $table->string('con_telefono1');
             $table->string('con_telefono2');
             $table->string('con_correo1');
@@ -23,9 +23,9 @@ class Contacto extends Migration
             $table->string('con_pagina');
             $table->string('con_google_maps');
             $table->string('con_whatsapp');
-            $table->string('con_direccion');                             
+            $table->string('con_direccion');
             $table->timestamp('con_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('con_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
+            $table->timestamp('con_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 

@@ -14,12 +14,12 @@ class Pais extends Migration
     public function up()
     {
         Schema::create('cat_pais', function (Blueprint $table) {
-            $table->bigIncrements('pai_id');
-            $table->string('pai_codigo',10)->nullable();
-            $table->string('pai_nombre',50)->unique();            
-            $table->boolean('pai_estado')->default(true);            
-            $table->timestamp('pai_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('pai_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->bigIncrements('pais_id');
+            $table->string('pais_codigo',10)->nullable();
+            $table->string('pais_nombre',50)->unique();
+            $table->boolean('pais_estado')->default(true);
+            $table->timestamp('pais_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('pais_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 

@@ -14,11 +14,11 @@ class FormasPago extends Migration
     public function up()
     {
         Schema::create('neg_formas_pago', function (Blueprint $table) {
-            $table->bigIncrements('fpa_id'); 
+            $table->bigIncrements('fpa_id');
             $table->boolean('fpa_efectivo')->default(true);
-            $table->boolean('fpa_tarjetas')->default(false);                    
+            $table->boolean('fpa_tarjetas')->default(false);
             $table->timestamp('fpa_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('fpa_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));              
+            $table->timestamp('fpa_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });
     }
 

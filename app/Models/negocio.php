@@ -32,22 +32,22 @@ class negocio extends Model
      */
     protected $guarded = [];
 
-    public function usuarios() {
+    public function usuario() {
         return $this->belongsTo('App\Models\usuarios', 'neg_usu_fk', 'usu_id');
     }
-   
-    public function ubicacion() {
-        return $this->belongsTo('App\Models\ubicacion', 'neg_ubi_fk', 'ubi_id');
+
+    public function municipio() {
+        return $this->belongsTo('App\Models\municipio', 'neg_mun_fk', 'mun_id');
     }
 
     public function categoria() {
         return $this->belongsTo('App\Models\categoria', 'neg_cat_fk', 'cat_id');
     }
 
-    public function horario() {
-        return $this->belongsTo('App\Models\horario', 'neg_hor_fk', 'hor_id');
+    public function horarios() {
+        return $this->hasMany('App\Models\horario', 'neg_hor_fk', 'hor_id');
     }
-    
+
     public function contacto() {
         return $this->belongsTo('App\Models\contacto', 'neg_con_fk', 'con_id');
     }
@@ -59,7 +59,7 @@ class negocio extends Model
     public function formaspago() {
         return $this->belongsTo('App\Models\formaspago', 'neg_fpa_fk', 'fpa_id');
     }
-    
+
     public function parqueos() {
         return $this->belongsTo('App\Models\parqueos    ', 'neg_par_fk', 'par_id');
     }

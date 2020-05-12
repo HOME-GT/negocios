@@ -16,8 +16,8 @@ class Municipio extends Migration
         Schema::create('cat_municipio', function (Blueprint $table) {
             $table->bigIncrements('mun_id');
             $table->string('mun_codigo',10)->nullable();
-            $table->string('mun_nombre',50)->unique();
-            $table->boolean('mun_estado')->default(true);            
+            $table->string('mun_nombre',250);
+            $table->boolean('mun_estado')->default(true);
             $table->unsignedBigInteger('mun_dep_fk');
             $table->foreign('mun_dep_fk')->references('dep_id')->on('cat_departamento');
             $table->timestamp('mun_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));

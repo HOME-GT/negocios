@@ -16,10 +16,10 @@ class Departamento extends Migration
         Schema::create('cat_departamento', function (Blueprint $table) {
             $table->bigIncrements('dep_id');
             $table->string('dep_codigo',10)->nullable();
-            $table->string('dep_nombre',50)->unique();
-            $table->boolean('dep_estado')->default(true);            
-            $table->unsignedBigInteger('dep_pai_fk');
-            $table->foreign('dep_pai_fk')->references('pai_id')->on('cat_pais');
+            $table->string('dep_nombre',250);
+            $table->boolean('dep_estado')->default(true);
+            $table->unsignedBigInteger('dep_pais_fk');
+            $table->foreign('dep_pais_fk')->references('pais_id')->on('cat_pais');
             $table->timestamp('dep_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('dep_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
        });

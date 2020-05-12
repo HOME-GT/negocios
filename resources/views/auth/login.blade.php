@@ -2,19 +2,32 @@
 
 @section('Main')
     <div class="form-signin d-flex align-items-center justify-content-center" id="login">
-        <form class="text-center shadow-sm p-4 bg-white rounded">
+        <form class="text-center shadow-sm p-4 bg-white rounded" action="{{ route('login-post') }}" method="POST">
             <img class="mb-4" src=" {{ asset("imagenes/logo_home_color.svg") }} " alt="" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
 
-            <label for="inputEmail" class="sr-only">CUI</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="CUI" autofocus>
+            @csrf
 
-            <label for="inputPassword" class="sr-only">Contraseña</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña">
+            <label for="usu_cui" class="sr-only">CUI</label>
+            <input type="text" id="usu_cui" name="usu_cui" class="form-control {{ $errors->has('usu_cui') ? ' is-invalid' : '' }}"  value="{{ old('usu_cui') }}"  placeholder="CUI" autofocus>
+            @if ($errors->has('usu_cui'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('usu_cui') }}</span>
+                </span>
+            @endif
+
+            <label for="password" class="sr-only">Contraseña</label>
+            <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Contraseña">
+            @if ($errors->has('password'))
+                <span class="invalid-feedback text-left" role="alert">
+                    <span>{{ $errors->first('password') }}</span>
+                </span>
+            @endif
 
             <div class="checkbox mb-3 text-left">
-                <label>
-                    <input type="checkbox" value="remember-me"> Recordarme
+                <label for="remember">
+                    <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                    Recordarme
                 </label>
             </div>
             <button class="btn btn-lg btn-dark btn-block" type="submit">Ingresar</button>

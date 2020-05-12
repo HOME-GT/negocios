@@ -46,7 +46,6 @@
                     <span class="badge badge-dark">Categoría</span>
                     <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
                     <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
-
                 </p>
             </div>
         @endforeach
