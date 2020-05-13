@@ -1,4 +1,4 @@
-@extends('Web.Layout')
+@extends('Web.Layout', ['title' => "¿Cómo funciona? - NegociosGT"])
 
 @section('Main')
     <div>

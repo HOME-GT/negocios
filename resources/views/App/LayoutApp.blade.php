@@ -1,4 +1,4 @@
-@extends('Web.Layout')
+@extends('Web.Layout', ['title' => "App - NegociosGT"])
 @section('Nav')
     <div class="nav-scroller bg-white shadow-sm">
         <nav class="nav nav-underline">

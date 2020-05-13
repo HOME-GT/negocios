@@ -42,7 +42,7 @@
                         <div class="form-row">
                              <div class="col-md-12 text-left">
                                   <div class="input-group">
-                                       <input name="search" id="search" type="search" class="form-control form-control-lg" placeholder="¿Qué negocio estas buscando?" autofocus>
+                                       <input name="query" id="query" type="search" class="form-control form-control-lg" placeholder="¿Qué negocio estas buscando?" autofocus>
                                   </div>
                              </div>
                         </div>

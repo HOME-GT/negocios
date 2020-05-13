@@ -25,13 +25,9 @@ Route::namespace('Web')->group(function(){
     Route::name('web.')->group(function(){
         Route::get('/', 'HomeController@showIndex')->name("home");
         Route::get('resultados', 'HomeController@showResultados')->name("resultados");
+        Route::get('negocio/{nombreNegocio}/{nombreSucursal?}', 'HomeController@showDetalles')->name("detalles");
         Route::get('como-funciona', 'HomeController@showComoFunciona')->name("comofunciona");
-    });
-});
 
-Route::namespace('App')->group(function(){
-    Route::name('app.')->prefix("app")->middleware(['middleware' => 'auth'])->group(function(){
-        Route::get('/', function(){ return view("App.Home"); })->name("home");
 
         Route::name('catalogos.')->prefix("catalogos")->group(function(){
             Route::get('departamentos', 'CatalogosController@GetDepartamentos')->name("departamentos");
@@ -39,14 +35,18 @@ Route::namespace('App')->group(function(){
             Route::get('categorias', 'CatalogosController@GetCategorias')->name("categorias");
             Route::get('formaspago', 'CatalogosController@GetFormaspago')->name("formaspago");
         });
+    });
+});
+
+Route::namespace('App')->group(function(){
+    Route::name('app.')->prefix("app")->middleware(['middleware' => 'auth'])->group(function(){
+        Route::get('/', function(){ return view("App.Home"); })->name("home");
 
         Route::name('negocio.')->prefix("negocio")->group(function(){
             Route::get('/', 'NegocioController@ListadoView')->name("listado.get");
             Route::get('nuevo', 'NegocioController@NuevoView')->name("nuevo.get");
             Route::get('edicion/{id}', 'NegocioController@EditarView')->name("edicion.get");
         });
-
-
     });
 });
 

@@ -464,9 +464,9 @@
             _inputNumero("#cantidaddiscapacitados");
 
             $("#formaspago").select2();
-            _initSelect2("{{route("app.catalogos.departamentos")}}", "#departamento", true, "#pais", "#municipio");
-            _initSelect2("{{route("app.catalogos.municipios")}}", "#municipio", true, "#departamento");
-            _initSelect2("{{route("app.catalogos.categorias")}}", "#categoria", true);
+            _initSelect2("{{route("web.catalogos.departamentos")}}", "#departamento", true, "#pais", "#municipio");
+            _initSelect2("{{route("web.catalogos.municipios")}}", "#municipio", true, "#departamento");
+            _initSelect2("{{route("web.catalogos.categorias")}}", "#categoria", true);
 
             $('.timepicker').timepicker({timeFormat: 'h:mm p', interval: 30, dynamic: false, dropdown: true, scrollbar: false });
 
