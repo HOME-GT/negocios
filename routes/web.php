@@ -25,7 +25,8 @@ Route::namespace('Web')->group(function(){
     Route::name('web.')->group(function(){
         Route::get('/', 'HomeController@showIndex')->name("home");
         Route::get('resultados', 'HomeController@showResultados')->name("resultados");
-        Route::get('negocio/{nombreNegocio}/{nombreSucursal?}', 'HomeController@showDetalles')->name("detalles");
+        Route::get('negocio/{nombreNegocio}', 'HomeController@showNegocio')->name("negocio");
+        Route::get('negocio/{nombreNegocio}/{nombreSucursal}', 'HomeController@showSucursal')->name("sucursal");
         Route::get('como-funciona', 'HomeController@showComoFunciona')->name("comofunciona");
 
 

@@ -34,17 +34,46 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Resultados de la búsqueda</h6>
 
-        @foreach ([1,2,3,4,5,6,7] as $item)
-            <div class="media text-muted pt-3 hover">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                    <strong class="d-block font-weight-normal" style="font-size: 1.1rem"> <a href=" {{ route("web.detalles", $item) }} "> Nombre del negocio </a> </strong>
-                    <span class="badge badge-dark">Categoría</span>
-                    <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
-                    <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
-                </p>
+        @if (empty($query))
+            {{-- resultados vacios --}}
+            <div style="padding-top: 130px; padding-bottom: 130px;" class="text-center">
+                <div>
+                    <img src=" {{ asset('imagenes/utiles/empty.svg') }} " alt="Vacio" height="200">
+                </div>
+                <div>
+                    <h5 class="">No se encontaron resultados para la búsqueda:  <span class="small text-muted"> {{ $query }} </span></h5>
+                    <span class="small"> Si este negocio es tuyo agrégalo... <a href=" {{ route('app.negocio.nuevo.get') }} "> <i class="fa fa-plus"></i> Nuevo negocio  </a> </span>
+                </div>
             </div>
-        @endforeach
+        @else
+            @foreach ([1,2,3,4,5,6,7] as $item)
+                @if ($item % 2 != 0)
+                    <div class="media text-muted pt-3 hover">
+                        <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.negocio", $item) }} " class="text-primary"> Nombre del negocio </a> </strong>
+                            <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-success"></i>  ABIERTO | 7:00AM - 8:00PM </span>
+                            <span class="badge badge-dark">Categoría</span>
+                            <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
+                            <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
+                        </p>
+                    </div>
+                @else
+                    <div class="media text-muted pt-3 hover">
+                        <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                            <span class="d-block text-dark font-weight-bold" style="font-size: 0.6rem"> SUCURSAL </span>
+                            <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$item, $item]) }} " class="text-primary"> Nombre del negocio - Zona 9</a> </strong>
+                            <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-danger"></i>  CERRADO | 7:00AM - 8:00PM</span>
+                            <span class="badge badge-dark">Categoría</span>
+                            <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
+                            <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
+                        </p>
+                    </div>
+                @endif
+            @endforeach
+        @endif
+
     </div>
 @endsection
 
@@ -130,6 +159,14 @@
             border: 1px solid #ced4da !important;
             height: calc(1.5em + .75rem + 2px) !important;
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+        }
+        .text-primary{
+            /* color: #105EAB !important; */
+            /* font-size: 32px;
+            line-height: 1.125;
+            font-weight: 600;
+            letter-spacing: .004em;
+            font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif; */
         }
     </style>
 @endsection

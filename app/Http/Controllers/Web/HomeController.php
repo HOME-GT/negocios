@@ -31,8 +31,14 @@ class HomeController extends Controller
     }
 
 
-    public function showDetalles(string $nombreNegocio, string $nombreSucursal=null){
-        return view("Web.Home.Detalles", [
+    public function showNegocio(string $nombreNegocio){
+        return view("Web.Home.Negocio", [
+            'negocio' => $nombreNegocio
+        ]);
+    }
+
+    public function showSucursal(string $nombreNegocio, string $nombreSucursal){
+        return view("Web.Home.Sucursal", [
             'negocio' => $nombreNegocio,
             'sucursal' => $nombreSucursal
         ]);
