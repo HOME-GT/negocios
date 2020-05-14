@@ -63,6 +63,9 @@ body {
     .offcanvas-collapse.open .navbar-nav .nav-item{
         border-bottom: 1px solid #ddd;
     }
+    .offcanvas-collapse .navbar-nav .nav-item .nav-link{
+        font-size: 1rem !important;
+    }
 }
 .navbar{
     background: #212529 !important;
