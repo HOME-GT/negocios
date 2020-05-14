@@ -32,10 +32,10 @@ class sucursales extends Model
      */
     protected $guarded = [];
 
-    public function negocio() {
-        return $this->belongsTo('App\Models\negocio', 'suc_neg_fk', 'neg_id');
-    }   
-   
+    // public function negocio() {
+    //     return $this->belongsTo('App\Models\negocio', 'suc_neg_fk', 'neg_id');
+    // }
+
     public function ubicacion() {
         return $this->belongsTo('App\Models\ubicacion', 'suc_ubi_fk', 'ubi_id');
     }
@@ -43,7 +43,7 @@ class sucursales extends Model
     public function horario() {
         return $this->belongsTo('App\Models\horario', 'suc_hor_fk', 'hor_id');
     }
-    
+
     public function contacto() {
         return $this->belongsTo('App\Models\contacto', 'suc_con_fk', 'con_id');
     }

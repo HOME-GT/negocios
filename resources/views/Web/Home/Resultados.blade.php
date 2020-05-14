@@ -34,7 +34,7 @@
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Resultados de la búsqueda</h6>
 
-        @if (empty($query))
+        @if ( count($negocios) == 0)
             {{-- resultados vacios --}}
             <div style="padding-top: 130px; padding-bottom: 130px;" class="text-center">
                 <div>
@@ -46,32 +46,40 @@
                 </div>
             </div>
         @else
-            @foreach ([1,2,3,4,5,6,7] as $item)
-                @if ($item % 2 != 0)
+            @foreach ($negocios as $neg)
+                {{-- @if ($item % 2 != 0) --}}
                     <div class="media text-muted pt-3 hover">
-                        <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+                        <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
                         <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.negocio", $item) }} " class="text-primary"> Nombre del negocio </a> </strong>
+                            <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.negocio", $neg->neg_nombre_corto) }} " class="text-primary"> {{ $neg->neg_nombre_completo }} </a> </strong>
                             <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-success"></i>  ABIERTO | 7:00AM - 8:00PM </span>
-                            <span class="badge badge-dark">Categoría</span>
-                            <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
-                            <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
+                            <span class="badge badge-dark"> {{ $neg->categoria->cat_nombre }} </span>
+                            <span class="d-block text-dark" style="font-size: 0.9rem"> {{ $neg->neg_descripcion }} </span>
+                            <span class="d-block" style="font-size: 0.7rem"> {{ $neg->municipio->departamento->dep_nombre }} | {{ $neg->municipio->mun_nombre }} | {{ $neg->neg_ubicacion }} </span>
                         </p>
                     </div>
-                @else
-                    <div class="media text-muted pt-3 hover">
-                        <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <span class="d-block text-dark font-weight-bold" style="font-size: 0.6rem"> SUCURSAL </span>
-                            <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$item, $item]) }} " class="text-primary"> Nombre del negocio - Zona 9</a> </strong>
-                            <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-danger"></i>  CERRADO | 7:00AM - 8:00PM</span>
-                            <span class="badge badge-dark">Categoría</span>
-                            <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
-                            <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
-                        </p>
-                    </div>
-                @endif
+
+
+                    @if ($neg->sucursales->count() > 0)
+                        @foreach ($neg->sucursales as $suc)
+                            <div class="media text-muted pt-3 hover">
+                                <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
+                                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                    <span class="d-block text-dark font-weight-bold" style="font-size: 0.6rem"> SUCURSAL </span>
+                                    <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$neg->neg_nombre_corto, $suc->suc_ubicacion]) }} " class="text-primary"> Nombre del negocio - Zona 9</a> </strong>
+                                    <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-danger"></i>  CERRADO | 7:00AM - 8:00PM</span>
+                                    <span class="badge badge-dark">Categoría</span>
+                                    <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
+                                    <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
+                                </p>
+                            </div>
+                        @endforeach
+                    @endif
             @endforeach
+
+            <div class="pt-4 d-flex justify-content-end">
+                {{ $negocios->links() }}
+           </div>
         @endif
 
     </div>
