@@ -23,6 +23,9 @@ class Sucursales extends Migration
             $table->string('suc_ubicacion');
             $table->foreign('suc_hor_fk')->references('hor_id')->on('neg_horario');
             $table->unsignedBigInteger('suc_con_fk');
+
+            $table->string("suc_nombre")->nullable()->unique();
+
             $table->foreign('suc_con_fk')->references('con_id')->on('neg_contacto');
             $table->timestamp('suc_fecha_creacion')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('suc_fecha_modificacion')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

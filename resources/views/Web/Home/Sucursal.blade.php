@@ -1,20 +1,20 @@
-@extends('Web.Layout', ['title' => $negocio.' - '.$sucursal])
+@extends('Web.Layout', ['title' => $negocio->neg_nombre_corto.' - '.$sucursal->suc_nombre])
 
 @section('Main')
     <div class="bg-white shadow-sm mt-3 rounded">
         <div class="p-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href=" {{ route('web.negocio', $negocio) }} "> {{ $negocio }} </a></li>
-                  <li class="breadcrumb-item active" aria-current="page"> {{ $sucursal }} </li>
+                  <li class="breadcrumb-item"><a href=" {{ route('web.negocio', $negocio->neg_nombre_corto) }} "> {{ $negocio->neg_nombre_completo }} </a></li>
+                  <li class="breadcrumb-item active" aria-current="page"> {{ $sucursal->suc_nombre }} </li>
                 </ol>
             </nav>
         </div>
 
         <div class="px-3 pb-3">
-            <small> {{ $negocio }} </small>
-            <h2 class="mb-0 text-title"> {{ $sucursal }} </h2>
-            <p class="pt-0">Aquí va la descripción del negocio. Una descripción de que se hace y de como funciona la cosa...</p>
+            <small> {{ $negocio->neg_nombre_completo }} </small>
+            <h2 class="mb-0 text-title"> {{ $sucursal->suc_nombre }} </h2>
+            <p class="pt-0"> {{ $negocio->neg_descripcion }} </p>
         </div>
 
 
@@ -30,7 +30,7 @@
                 <div>
                     <div class=" pt-3">
                         <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">Ubicación</div>
-                        <p> Departamento : Municipio : Ubicación</p>
+                        <p> {{$sucursal->municipio->departamento->dep_nombre}} : {{$sucursal->municipio->mun_nombre}} : {{$sucursal->suc_ubicacion}}</p>
                     </div>
                 </div>
             </div>
@@ -110,46 +110,62 @@
                     <div class="col-md-6">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left"> <i class="fa fa-phone"></i> Telefonos</div>
-                            <p class="mb-0 pb-0"> <a href="#">+502 2323-2345</a> </p>
-                            <p class="mt-0 pt-0"> <a href="#">+502 2323-2345</a> </p>
+                            @if (!empty($sucursal->contacto->con_telefono1))
+                                <p class="mb-0 pb-0"> <a target="_blank" href="tel:+502 {{ $sucursal->contacto->con_telefono1 }} ">+502 {{ $sucursal->contacto->con_telefono1 }}</a> </p>
+                            @endif
+                            @if (!empty($sucursal->contacto->con_telefono2))
+                                <p class="mb-0 pb-0"> <a target="_blank" href="tel:+502 {{ $sucursal->contacto->con_telefono2 }} ">+502 {{ $sucursal->contacto->con_telefono2 }}</a> </p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-whatsapp"></i> WhatsApp</div>
-                            <p> <a href="#">+502 2323-2345</a> </p>
+                            @if (!empty($sucursal->contacto->con_whatsapp))
+                                <p> <a target="_blank" href="https://wa.me/502{{$sucursal->contacto->con_whatsapp}}">+502 {{ $sucursal->contacto->con_whatsapp }}</a> </p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6 pt-3">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left"> <i class="fa fa-envelope"></i> Correo1</div>
-                            <p> <a href="#">info@gmail.com</a> </p>
+                            @if (!empty($sucursal->contacto->con_correo1))
+                                <p> <a target="_blank" href="mailto:{{$sucursal->contacto->con_correo1}}">{{ $sucursal->contacto->con_correo1 }}</a> </p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6 pt-3">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-envelope"></i> Correo2</div>
-                            <p> <a href="#">info@gmail.com</a> </p>
+                            @if (!empty($sucursal->contacto->con_correo2))
+                                <p> <a target="_blank" href="mailto:{{$sucursal->contacto->con_correo2}}">{{ $sucursal->contacto->con_correo2 }}</a> </p>
+                            @endif
                         </div>
                     </div>
 
                     <div class="col-md-6 pt-3">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left"> <i class="fa fa-web"></i> Página Web</div>
-                            <p> <a href="#">https://getbootstrap.com/ <i class="fa fa-angle-right"></i> </a> </p>
+                            @if (!empty($sucursal->contacto->con_pagina))
+                                <p> <a target="_blank" href="{{$sucursal->contacto->con_pagina}}">{{ $sucursal->contacto->con_pagina }}</a> </p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6 pt-3">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-facebook"></i> Facebook</div>
-                            <p> <a href="#">info@gmail.com</a> </p>
+                            @if (!empty($sucursal->contacto->con_facebook))
+                                <p> <a target="_blank" href="{{$sucursal->contacto->con_facebook}}">{{ $sucursal->contacto->con_facebook }}</a> </p>
+                            @endif
                         </div>
                     </div>
 
                     <div class="col-md-12 pt-3">
                         <div class="border-bottom">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-location-arrow"></i> Dirección</div>
-                            <p> Dirección </p>
+                            @if (!empty($sucursal->contacto->con_direccion))
+                                <p> {{ $sucursal->contacto->con_direccion }} </p>
+                            @endif
                         </div>
                     </div>
 
@@ -157,7 +173,9 @@
                         <div class="">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-map-marked-alt"></i> Google Maps</div>
                             <div class="pt-2">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15437.360215431041!2d-90.44080485!3d14.6933517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x858997894481cd59%3A0x2b94ecd55c7a582c!2sLa%20Estancia!5e0!3m2!1sen!2sgt!4v1589333508302!5m2!1sen!2sgt" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                @if (!empty($sucursal->contacto->con_google_maps))
+                                    <iframe src=" {{ $sucursal->contacto->con_google_maps }} " width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -61,10 +61,14 @@ class negocio extends Model
     }
 
     public function parqueos() {
-        return $this->belongsTo('App\Models\parqueos    ', 'neg_par_fk', 'par_id');
+        return $this->belongsTo('App\Models\parqueos', 'neg_par_fk', 'par_id');
     }
 
     public function sucursales() {
         return $this->hasMany('App\Models\sucursales', 'suc_neg_fk', 'neg_id');
+    }
+
+    public function imagenes() {
+        return $this->hasMany('App\Models\imagenes', 'ima_neg_fk', 'neg_id');
     }
 }
