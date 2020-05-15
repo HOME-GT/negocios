@@ -47,7 +47,6 @@
             </div>
         @else
             @foreach ($negocios as $neg)
-                {{-- @if ($item % 2 != 0) --}}
                     <div class="media text-muted pt-3 hover">
                         <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
                         <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
@@ -62,15 +61,12 @@
 
                     @if ($neg->sucursales->count() > 0)
                         @foreach ($neg->sucursales as $suc)
-                            <div class="media text-muted pt-3 hover">
+                            <div class="media text-muted pt-3 hover ml-5">
                                 <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
                                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                                    <span class="d-block text-dark font-weight-bold" style="font-size: 0.6rem"> SUCURSAL </span>
-                                    <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$neg->neg_nombre_corto, $suc->suc_ubicacion]) }} " class="text-primary"> Nombre del negocio - Zona 9</a> </strong>
+                                    <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$neg->neg_nombre_corto, $suc->suc_nombre]) }} " class="text-primary"> {{ $suc->suc_nombre }}  </a> </strong>
                                     <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle text-danger"></i>  CERRADO | 7:00AM - 8:00PM</span>
-                                    <span class="badge badge-dark">Categoría</span>
-                                    <span class="d-block text-dark" style="font-size: 0.9rem"> Descripción del negocio </span>
-                                    <span class="d-block" style="font-size: 0.7rem"> Departamento | Municipio | Ubicación </span>
+                                    <span class="d-block" style="font-size: 0.7rem"> {{ $suc->municipio->departamento->dep_nombre }} | {{ $suc->municipio->mun_nombre }} | {{ $suc->suc_ubicacion }} </span>
                                 </p>
                             </div>
                         @endforeach
@@ -78,7 +74,7 @@
             @endforeach
 
             <div class="pt-4 d-flex justify-content-end">
-                {{ $negocios->links() }}
+                {{ $negocios->appends(request()->input())->links() }}
            </div>
         @endif
 

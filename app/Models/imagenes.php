@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class sucursales extends Model
+class imagenes extends Model
 {
      const CREATED_AT = null;
      const UPDATED_AT = null;
-     protected $primaryKey = 'suc_id';
-     protected $table = 'neg_sucursales';
+     protected $primaryKey = 'ima_id';
+     protected $table = 'neg_imagenes';
 
     /**
      * The attributes that are mass assignable.
@@ -31,17 +31,4 @@ class sucursales extends Model
      * @var array
      */
     protected $guarded = [];
-
-
-    public function municipio() {
-        return $this->belongsTo('App\Models\municipio', 'suc_mun_fk', 'mun_id');
-    }
-
-    public function horario() {
-        return $this->belongsTo('App\Models\horario', 'suc_hor_fk', 'hor_id');
-    }
-
-    public function contacto() {
-        return $this->belongsTo('App\Models\contacto', 'suc_con_fk', 'con_id');
-    }
 }
