@@ -15,6 +15,7 @@ class Sucursales extends Migration
     {
         Schema::create('neg_sucursales', function (Blueprint $table) {
             $table->bigIncrements('suc_id');
+            $table->string('suc_nombre',150);
             $table->unsignedBigInteger('suc_neg_fk');
             $table->foreign('suc_neg_fk')->references('neg_id')->on('neg_negocio');
             $table->unsignedBigInteger('suc_mun_fk');
