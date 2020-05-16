@@ -1,7 +1,8 @@
 @extends('App.LayoutApp')
 @section('Main')
     <div class="mt-3 p-3 bg-white shadow-sm rounded">
-        <form action="">
+    <form action="{{route('app.negocio.nuevo.post')}}" method="POST"  enctype="multipart/form-data">
+        @csrf
             {{-- Información general --}}
             <div class="accordion" id="infogeneral">
                 <h6 class="text-uppercase text-white bg-dark p-2 hover" data-target="#infogeneralOne"  data-toggle="collapse" >
@@ -12,56 +13,88 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nombre_completo" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Nombre completo de la persona, institución, empresa o negocio que se desee crear, ejemplo: 'Almacenes de Refrigeración, S.A.'."></i>
                                 Nombre completo
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" id="nombre_completo" name="nombre_completo">
+                            <input type="text" id="nombre_completo" name="nombre_completo" class="form-control {{ $errors->has('nombre_completo') ? 'is-invalid' : '' }}" value="{{ old('nombre_completo') }}">
+                            @if ($errors->has('nombre_completo'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('nombre_completo') }} </span>
+                            @endif
                         </div>
                         <div class="form-group col-md-6">
                             <label for="nombre_corto" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Nombre corto que usa la persona, institución, empresa o negocio que se desee crear, ejemplo: 'ALMAREFRI', 'LOS PANES'."></i>
                                 Nombre Corto
                             </label>
-                            <input type="text" class="form-control" id="nombre_corto" name="nombre_corto">
+                            <input type="text" id="nombre_corto" name="nombre_corto" class="form-control {{ $errors->has('nombre_corto') ? 'is-invalid' : '' }}" value="{{ old('nombre_corto') }}">
+                            @if ($errors->has('nombre_corto'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('nombre_corto') }} </span>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="descripcion" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Descripción general de la empresa o negocio, a que se dedica, su especialidad o su experiencia en el producto o servicio."></i>
                                 Descripción
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" id="descripcion" name="descripcion">
+                            <input type="text" id="descripcion" name="descripcion" class="form-control {{ $errors->has('descripcion') ? 'is-invalid' : '' }}" value="{{ old('descripcion') }}">
+                            @if ($errors->has('descripcion'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('descripcion') }} </span>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="departamento" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Nombre del departamento donde se ubica la empresa o negocio, seleccione de la lista."></i>
                                 Departamento
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="departamento" id="departamento" class="select2 w-100"></select>
+                            @php
+                                $item = (old("departamento") != null ? \App\Models\departamento::where("dep_id", old("departamento"))->first() : null);
+                            @endphp
+                            <select name="departamento" id="departamento" class="select2 w-100 {{ $errors->has('departamento') ? 'is-invalid' : '' }}">
+                                @if($item != null)
+                                    <option value="{{$item->dep_id}}" title="{{$item->dep_nombre}}" selected> {{$item->dep_nombre}} </option>
+                                @endif
+                            </select>
+                            @if ($errors->has('departamento'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('departamento') }} </span>
+                            @endif
                             <input type="hidden" name="pais" id="pais" value="1">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="municipio" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Nombre del municipio donde se encuentre el negocio, seleccione de la lista.  "></i>
                                 Municipio
                                 <span class="text-danger">*</span>
                             </label>
-                            <select name="municipio" id="municipio" class="select2 w-100"></select>
+                            @php
+                                $item = (old("municipio") != null ? \App\Models\municipio::where("mun_id", old("municipio"))->first() : null);
+                            @endphp
+                            <select name="municipio" id="municipio" class="select2 w-100 {{ $errors->has('municipio') ? 'is-invalid' : '' }}">
+                                @if($item != null)
+                                    <option value="{{$item->mun_id}}" title="{{$item->mun_nombre}}" selected> {{$item->mun_nombre}} </option>
+                                @endif
+                            </select>
+                            @if ($errors->has('municipio'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('municipio') }} </span>
+                            @endif
                         </div>
                         <div class="form-group col-md-4">
                             <label for="ubicacion" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Proporciona puntos de referencia para poder llegar a la empresa o negocio, nombre de la aldea, caserío, cantón, etc."></i>
                                 Ubicación
                             </label>
-                            <input type="text" class="form-control" id="ubicacion" name="ubicacion">
+                            <input type="text" id="ubicacion" name="ubicacion" class="form-control {{ $errors->has('ubicacion') ? 'is-invalid' : '' }}" value="{{ old('ubicacion') }}" >
+                            @if ($errors->has('ubicacion'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('ubicacion') }} </span>
+                            @endif
                             <small class="form-text text-muted">Zona, Colonia, aldea, etc...</small>
                         </div>
                     </div>
@@ -69,30 +102,43 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="logo" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Si se cuenta con un logotipo se puede agregar, para que este visible para el público en general."></i>
                                 Agregar Logo
                             </label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="logo" name="logo">
+                                <input type="file" id="logo" name="logo" class="custom-file-input {{ $errors->has('logo') ? 'is-invalid' : '' }}" value="{{ old('logo') }}">
+                                @if ($errors->has('logo'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('logo') }} </span>
+                                @endif
                                 <label for="logo" class="custom-file-label" data-browse="Elegir">[.png, .jpg, .svg]</label>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="categoria" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Podrá elegir una opción dependiendo de la categoría donde encaje su negocio."></i>
                                 Categoría <span class="text-danger">*</span>
                             </label>
-                            <select name="categoria" id="categoria" class="select2 w-100"></select>
+                            @php
+                                $item = (old("categoria") != null ? \App\Models\categoria::where("cat_id", old("categoria"))->first() : null);
+                            @endphp
+                            <select name="categoria" id="categoria" class="select2 w-100 {{ $errors->has('categoria') ? 'is-invalid' : '' }}">
+                                @if($item != null)
+                                    <option value="{{$item->cat_id}}" title="{{$item->cat_nombre}}" selected> {{$item->cat_nombre}} </option>
+                                @endif
+                            </select>
+                            @if ($errors->has('categoria'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('categoria') }} </span>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="servicio_domicilio" name="servicio_domicilio">
+                                <input type="checkbox" id="servicio_domicilio" name="servicio_domicilio"  class="custom-control-input" {{(old("servicio_domicilio") != null ? "checked":"")}}>
                                 <label class="custom-control-label" for="servicio_domicilio">
                                     ¿El negocio tiene servicio a domicilio?
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Podra darle Click al chec si su negocio cuenta con servicio a domicilio."></i>
                                 </label>
                               </div>
                         </div>
@@ -110,26 +156,33 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="telefono1" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Se ingresa el número de teléfono fijo si se tiene o celular."></i>
                                     Telefono 1
+                                    <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group input-group-sm">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+502</span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" id="telefono1" name="telefono1">
+                                    <input type="text"  id="telefono1" name="telefono1" class="form-control form-control-sm {{ $errors->has('telefono1') ? 'is-invalid' : '' }}" value="{{ old('telefono1') }}" >
+                                    @if ($errors->has('telefono1'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('telefono1') }} </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="telefono2" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Si en la casilla anterior ya se ingresó teléfono fijo acá se ingresa algún número de celular."></i>
                                     Telefono 2
                                 </label>
                                 <div class="input-group input-group-sm">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+502</span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" id="telefono2" name="telefono2">
+                                    <input type="text" id="telefono2" name="telefono2" class="form-control form-control-sm {{ $errors->has('telefono2') ? 'is-invalid' : '' }}" value="{{ old('telefono2') }}">
+                                    @if ($errors->has('telefono2'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('telefono2') }} </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -137,35 +190,48 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="correo1" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Se ingresa correo electrónico de la empresa o correo personal donde los clientes los puedan contactar."></i>
                                     Correo 1
+                                    <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" class="form-control form-control-sm" id="correo1" name="correo1">
+                                <input type="text" id="correo1" name="correo1" class="form-control form-control-sm {{ $errors->has('correo1') ? 'is-invalid' : '' }}"  value="{{ old('correo1') }}">
+                                @if ($errors->has('correo1'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('correo1') }} </span>
+                                @endif
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="correo2" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Se ingresa correo electrónico de la empresa o correo personal donde los clientes los puedan contactar."></i>
                                     Correo 2
                                 </label>
-                                <input type="text" class="form-control form-control-sm" id="correo2" name="correo2">
+                                <input type="text" id="correo2" name="correo2" class="form-control form-control-sm {{ $errors->has('correo2') ? 'is-invalid' : '' }}"  value="{{ old('correo2') }}">
+                                @if ($errors->has('correo2'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('correo2') }} </span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="pagina" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Enlace o vínculo al sitio oficial del negocio donde se podrá tener acceso a información de productos y servicios de forma amplia."></i>
                                     Link Pagina
                                 </label>
-                                <input type="text" class="form-control form-control-sm" id="pagina" name="pagina">
+                                <input type="text" id="pagina" name="pagina" class="form-control form-control-sm {{ $errors->has('pagina') ? 'is-invalid' : '' }}" value="{{ old('pagina') }}">
+                                @if ($errors->has('pagina'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('pagina') }} </span>
+                                @endif
                                 <small class="form-text text-muted">http://www.negocios.com.gt</small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="facebook" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Enlace o vínculo a la Fanpage del negocio, de la red social Facebook."></i>
                                     Link Facebook
                                 </label>
-                                <input type="text" class="form-control form-control-sm" id="facebook" name="facebook">
+                                <input type="text" id="facebook" name="facebook" class="form-control form-control-sm {{ $errors->has('facebook') ? 'is-invalid' : '' }}" value="{{ old('facebook') }}">
+                                @if ($errors->has('facebook'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('facebook') }} </span>
+                                @endif
                                 <small class="form-text text-muted">http://www.facebook.com/usuario</small>
                             </div>
                         </div>
@@ -174,31 +240,40 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="google_maps" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Enlace o vínculo a Google Maps para acceder a la ubicación del negocio. "></i>
                                     Link de Google Maps
                                 </label>
-                                <input type="url" class="form-control form-control-sm" id="google_maps" name="google_maps">
+                                <input type="text" id="google_maps" name="google_maps" class="form-control form-control-sm  {{ $errors->has('google_maps') ? 'is-invalid' : '' }}" value="{{ old('google_maps') }}">
+                                @if ($errors->has('google_maps'))
+                                    <span class="invalid-feedback" role="alert"> {{ $errors->first('google_maps') }} </span>
+                                @endif
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="whatsapp" class="small">
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Si la empresa o negocio posee WhatsApp empresarial o algún numero que sirva para atención al cliente usando WhatsApp se ingresa acá."></i>
                                     Número de WhatsApp
                                 </label>
                                 <div class="input-group input-group-sm">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+502</span>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm" id="whatsapp" name="whatsapp">
+                                    <input type="text" id="whatsapp" name="whatsapp" class="form-control form-control-sm  {{ $errors->has('whatsapp') ? 'is-invalid' : '' }}"  value="{{ old('whatsapp') }}" >
+                                    @if ($errors->has('whatsapp'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('whatsapp') }} </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="direccion" class="small">
-                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                <i class="fa fa-info-circle" data-toggle="popover" data-content="Dirección completa de la empresa o negocio."></i>
                                 Dirección completa
                             </label>
-                            <input type="text" class="form-control form-control-sm" id="direccion" name="direccion">
+                            <input type="text" id="direccion" name="direccion" class="form-control form-control-sm {{ $errors->has('direccion') ? 'is-invalid' : '' }}"  value="{{ old('direccion') }}">
+                            @if ($errors->has('direccion'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('direccion') }} </span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -215,96 +290,166 @@
                             <tr class="small">
                                 <th scope="col">
                                     DÍA
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Días de la semana en el cual se presta el servicio."></i>
                                 </th>
                                 <th scope="col">
                                     INICIO
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Hora en la cual inicia la atención a los clientes."></i>
                                 </th>
                                 <th scope="col">
                                     FIN
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Hora de cierre del negocio."></i>
                                 </th>
                                 <th scope="col">
                                     CERRADO
-                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                                    <i class="fa fa-info-circle" data-toggle="popover" data-content="Clik acá si determinado día se encuentra cerrado el negocio o sin atención al público."></i>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">Lunes</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_lunes" name="inicio_lunes"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_lunes" name="fin_lunes"></td>
+                                <td>
+                                    <input type="text" id="inicio_lunes" name="inicio_lunes" class="timepicker form-control form-control-sm {{ $errors->has('inicio_lunes') ? 'is-invalid' : '' }}"  value="{{ old('inicio_lunes') }}" >
+                                    @if ($errors->has('inicio_lunes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_lunes') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text"  id="fin_lunes" name="fin_lunes" class="timepicker form-control form-control-sm {{ $errors->has('fin_lunes') ? 'is-invalid' : '' }}"  value="{{ old('fin_lunes') }}">
+                                    @if ($errors->has('fin_lunes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_lunes') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_lunes" name="cerrado_lunes">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_lunes" name="cerrado_lunes" {{(old("cerrado_lunes") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_lunes"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Martes</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_martes" name="inicio_martes"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_martes" name="fin_martes"></td>
+                                <td>
+                                    <input type="text" id="inicio_martes" name="inicio_martes" class="timepicker form-control form-control-sm {{ $errors->has('inicio_martes') ? 'is-invalid' : '' }}"  value="{{ old('inicio_martes') }}">
+                                    @if ($errors->has('inicio_martes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_martes') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_martes" name="fin_martes" class="timepicker form-control form-control-sm {{ $errors->has('fin_martes') ? 'is-invalid' : '' }}"  value="{{ old('fin_martes') }}">
+                                    @if ($errors->has('fin_martes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_martes') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_martes" name="cerrado_martes">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_martes" name="cerrado_martes" {{(old("cerrado_martes") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_martes"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Miércoles</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_miercoles" name="inicio_miercoles"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_miercoles" name="fin_miercoles"></td>
+                                <td>
+                                    <input type="text" id="inicio_miercoles" name="inicio_miercoles"  class="timepicker form-control form-control-sm {{ $errors->has('inicio_miercoles') ? 'is-invalid' : '' }}"  value="{{ old('inicio_miercoles') }}">
+                                    @if ($errors->has('inicio_miercoles'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_miercoles') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_miercoles" name="fin_miercoles" class="timepicker form-control form-control-sm {{ $errors->has('fin_miercoles') ? 'is-invalid' : '' }}"  value="{{ old('fin_miercoles') }}">
+                                    @if ($errors->has('fin_miercoles'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_miercoles') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_miercoles" name="cerrado_miercoles">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_miercoles" name="cerrado_miercoles" {{(old("cerrado_miercoles") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_miercoles"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Jueves</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_jueves" name="inicio_jueves"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_jueves" name="fin_jueves"></td>
+                                <td>
+                                    <input type="text" id="inicio_jueves" name="inicio_jueves"  class="timepicker form-control form-control-sm {{ $errors->has('inicio_jueves') ? 'is-invalid' : '' }}"  value="{{ old('inicio_jueves') }}">
+                                    @if ($errors->has('inicio_jueves'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_jueves') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_jueves" name="fin_jueves"  class="timepicker form-control form-control-sm {{ $errors->has('fin_jueves') ? 'is-invalid' : '' }}"  value="{{ old('fin_jueves') }}">
+                                    @if ($errors->has('fin_jueves'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_jueves') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_jueves" name="cerrado_jueves">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_jueves" name="cerrado_jueves" {{(old("cerrado_jueves") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_jueves"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Viernes</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_viernes" name="inicio_viernes"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_viernes" name="fin_viernes"></td>
+                                <td>
+                                    <input type="text" id="inicio_viernes" name="inicio_viernes" class="timepicker form-control form-control-sm {{ $errors->has('inicio_viernes') ? 'is-invalid' : '' }}"  value="{{ old('inicio_viernes') }}">
+                                    @if ($errors->has('inicio_viernes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_viernes') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_viernes" name="fin_viernes" class="timepicker form-control form-control-sm {{ $errors->has('fin_viernes') ? 'is-invalid' : '' }}"  value="{{ old('fin_viernes') }}" >
+                                    @if ($errors->has('fin_viernes'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_viernes') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_viernes" name="cerrado_viernes">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_viernes" name="cerrado_viernes" {{(old("cerrado_viernes") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_viernes"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Sábado</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_sabado" name="inicio_sabado"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_sabado" name="fin_sabado"></td>
+                                <td>
+                                    <input type="text" id="inicio_sabado" name="inicio_sabado"  class="timepicker form-control form-control-sm {{ $errors->has('inicio_sabado') ? 'is-invalid' : '' }}"  value="{{ old('inicio_sabado') }}">
+                                    @if ($errors->has('inicio_sabado'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_sabado') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_sabado" name="fin_sabado"  class="timepicker form-control form-control-sm {{ $errors->has('fin_sabado') ? 'is-invalid' : '' }}"  value="{{ old('fin_sabado') }}">
+                                    @if ($errors->has('fin_sabado'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_sabado') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_sabado" name="cerrado_sabado">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_sabado" name="cerrado_sabado" {{(old("cerrado_sabado") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_sabado"></label>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">Domingo</th>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="inicio_domingo" name="inicio_domingo"></td>
-                                <td><input type="text" class="timepicker form-control form-control-sm" id="fin_domingo" name="fin_domingo"></td>
+                                <td>
+                                    <input type="text"  id="inicio_domingo" name="inicio_domingo" class="timepicker form-control form-control-sm {{ $errors->has('inicio_domingo') ? 'is-invalid' : '' }}"  value="{{ old('inicio_domingo') }}">
+                                    @if ($errors->has('inicio_domingo'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('inicio_domingo') }} </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <input type="text" id="fin_domingo" name="fin_domingo"  class="timepicker form-control form-control-sm {{ $errors->has('fin_domingo') ? 'is-invalid' : '' }}"  value="{{ old('fin_domingo') }}">
+                                    @if ($errors->has('fin_domingo'))
+                                        <span class="invalid-feedback" role="alert"> {{ $errors->first('fin_domingo') }} </span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="cerrado_domingo" name="cerrado_domingo">
+                                        <input type="checkbox" class="custom-control-input" id="cerrado_domingo" name="cerrado_domingo" {{(old("cerrado_domingo") != null)?"checked":""}}>
                                         <label class="custom-control-label" for="cerrado_domingo"></label>
                                     </div>
                                 </td>
@@ -321,13 +466,16 @@
                 </h6>
                 <div class="collapse show mb-2" data-parent="#infoformaspago" id="infoformaspagoOne">
                     <label for="formaspago">
-                        <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                        <i class="fa fa-info-circle" data-toggle="popover" data-content="Selección del medio de pago que acepta el negocio, se puede escoger una o varias formas de pago de la lista."></i>
                         Selecione todas las formas de pago
                     </label>
-                    <select name="formaspago" id="formaspago" multiple class="select2 w-100">
+                    <select name="formaspago[]" id="formaspago" multiple class="select2 w-100 {{ $errors->has('formaspago') ? 'is-invalid' : '' }}">
                         <option value="EF" selected> Efectivo </option>
                         <option value="TJ"> Tarjetas </option>
                     </select>
+                    @if ($errors->has('formaspago'))
+                        <span class="invalid-feedback" role="alert"> {{ $errors->first('formaspago') }} </span>
+                    @endif
                 </div>
             </div>
 
@@ -339,46 +487,64 @@
                 <div class="collapse show mb-2" data-parent="#infoparqueo" id="infoparqueoOne">
                     <div class="form-group row">
                         <label for="motos" class="col-sm-2 col-form-label col-form-label-sm">
-                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Ingrese la cantidad de parqueos para motos que tiene disponible el negocio, y si este se paga se ingresa el precio por hora."></i>
                             Motos
                         </label>
                         <div class="col-sm-5">
                             <small class="form-text">Cantidad</small>
-                            <input type="number" class="form-control form-control-sm text-right" id="cantidadmotos" name="cantidadmotos">
+                            <input type="text" id="cantidadmotos" name="cantidadmotos" placeholder="Cantidad"  class="form-control form-control-sm text-right {{ $errors->has('cantidadmotos') ? 'is-invalid' : '' }}" value="{{ old('cantidadmotos')}}">
+                            @if ($errors->has('cantidadmotos'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('cantidadmotos') }} </span>
+                            @endif
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" class="form-control form-control-sm" id="preciomotos" name="preciomotos" placeholder="Precio">
+                            <input type="text" id="preciomotos" name="preciomotos" placeholder="Precio" class="form-control form-control-sm {{ $errors->has('preciomotos') ? 'is-invalid' : '' }}" value="{{ old('preciomotos')}}">
+                            @if ($errors->has('preciomotos'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('preciomotos') }} </span>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="motos" class="col-sm-2 col-form-label col-form-label-sm">
-                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Ingrese la cantidad de parqueos para carros con que cuenta el negocio, y si este tiene un costo, se ingresa el precio por hora."></i>
                             Carros
                         </label>
                         <div class="col-sm-5">
                             <small class="form-text">Cantidad</small>
-                            <input type="number" class="form-control form-control-sm" id="cantidadcarros" name="cantidadcarros" placeholder="Cantidad">
+                            <input type="text" id="cantidadcarros" name="cantidadcarros" placeholder="Cantidad" class="form-control form-control-sm text-right  {{ $errors->has('cantidadcarros') ? 'is-invalid' : '' }}"  value="{{ old('cantidadcarros')}}">
+                            @if ($errors->has('cantidadcarros'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('cantidadcarros') }} </span>
+                            @endif
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" class="form-control form-control-sm" id="preciocarros" name="preciocarros" placeholder="Precio">
+                            <input type="text" id="preciocarros" name="preciocarros" placeholder="Precio" class="form-control form-control-sm  {{ $errors->has('preciocarros') ? 'is-invalid' : '' }}" value="{{ old('preciocarros')}}">
+                            @if ($errors->has('preciocarros'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('preciocarros') }} </span>
+                            @endif
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="motos" class="col-sm-2 col-form-label col-form-label-sm">
-                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Ingrese si el negocio cuenta con un espacio de parqueo para personas con capacidades diferentes."></i>
                             Discapacitaos
                         </label>
                         <div class="col-sm-5">
                             <small class="form-text">Cantidad</small>
-                            <input type="number" class="form-control form-control-sm" id="cantidaddiscapacitados" name="cantidaddiscapacitados" placeholder="Cantidad">
+                            <input type="text" id="cantidaddiscapacitados" name="cantidaddiscapacitados" placeholder="Cantidad" class="form-control form-control-sm text-right   {{ $errors->has('cantidaddiscapacitados') ? 'is-invalid' : '' }}"  value="{{ old('cantidaddiscapacitados')}}">
+                            @if ($errors->has('cantidaddiscapacitados'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('cantidaddiscapacitados') }} </span>
+                            @endif
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" class="form-control form-control-sm" id="preciodiscapacitados" name="preciodiscapacitados" placeholder="Precio">
+                            <input type="text" id="preciodiscapacitados" name="preciodiscapacitados" placeholder="Precio" class="form-control form-control-sm  {{ $errors->has('preciodiscapacitados') ? 'is-invalid' : '' }}" value="{{ old('preciodiscapacitados')}}">
+                            @if ($errors->has('preciodiscapacitados'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('preciodiscapacitados') }} </span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -392,9 +558,15 @@
                 </h6>
                 <div class="collapse show mb-2" data-parent="#infoimagenes" id="infoimagenesOne">
                     <div class="form-group col-md-12">
-                        <label for="imagenes" class="small">Agregar Imagenes</label>
+                        <label for="imagenes" class="small">
+                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Puede elegir * imágenes del negocio."></i>
+                            Agregar Imagenes
+                        </label>
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="imagenes" name="imagenes" multiple>
+                            <input type="file" id="imagenes" name="imagenes[]" class="custom-file-input {{ $errors->has('imagenes') ? 'is-invalid' : '' }}" multiple>
+                            @if ($errors->has('imagenes'))
+                                <span class="invalid-feedback" role="alert"> {{ $errors->first('imagenes') }} </span>
+                            @endif
                             <label for="logo" class="custom-file-label" data-browse="Elegir">[.png, .jpg, .svg]</label>
                         </div>
                     </div>
@@ -410,23 +582,26 @@
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="mascarilla" checked>
-                            <label class="custom-control-label" for="mascarilla">¿Es requida la mascarrilla? <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i></label>
+                            <label class="custom-control-label" for="mascarilla">¿Es requida la mascarrilla? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click acá si es obligatorio el uso de la mascarilla para el ingreso al negocio."></i></label>
                           </div>
                     </div>
 
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="guantes">
-                            <label class="custom-control-label" for="guantes">¿Son requedios los guantes? <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i></label>
+                            <label class="custom-control-label" for="guantes">¿Son requedios los guantes? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click aca si es obligatorio el uso de guantes para el ingreso al negocio."></i></label>
                           </div>
                     </div>
 
                     <div class="form-group">
                         <label for="procedimiento" class="">
-                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></i>
+                            <i class="fa fa-info-circle" data-toggle="popover" data-content="Escriba una pequeña descripción si existe un procedimiento especial para la compra de los productos o servicios."></i>
                             Procedimiento de compra
                         </label>
-                        <textarea name="proceimiento" id="proceimiento" class="form-control"></textarea>
+                        <textarea name="procedimiento" id="procedimiento" class="form-control {{ $errors->has('procedimiento') ? 'is-invalid' : '' }}">{{ old('procedimiento')}}</textarea>
+                        @if ($errors->has('procedimiento'))
+                            <span class="invalid-feedback" role="alert"> {{ $errors->first('procedimiento') }} </span>
+                        @endif
                     </div>
                 </div>
             </div>
