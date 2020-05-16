@@ -47,6 +47,7 @@ Route::namespace('App')->group(function(){
             Route::get('/', 'NegocioController@ListadoView')->name("listado.get");
             Route::get('nuevo', 'NegocioController@NuevoView')->name("nuevo.get");
             Route::get('edicion/{id}', 'NegocioController@EditarView')->name("edicion.get");
+            Route::post('negocio', 'NegocioController@Nuevo')->name("nuevo.post");
         });
     });
 });
