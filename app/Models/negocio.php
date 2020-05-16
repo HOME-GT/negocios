@@ -44,8 +44,8 @@ class negocio extends Model
         return $this->belongsTo('App\Models\categoria', 'neg_cat_fk', 'cat_id');
     }
 
-    public function horarios() {
-        return $this->hasMany('App\Models\horario', 'neg_hor_fk', 'hor_id');
+    public function horario() {
+        return $this->belongsTo('App\Models\horario', 'neg_hor_fk', 'hor_id');
     }
 
     public function contacto() {

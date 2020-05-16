@@ -237,7 +237,7 @@
                     </thead>
                     <tbody>
                         <tr class="{{ Date("w") == 1 ? 'table-info' : "" }}">
-                            <th scope="row">Lunes</th>
+                            <th scope="row">Lunes </th>
                             <td>10:00 AM</td>
                             <td>11:00 PM</td>
                         </tr>

@@ -8,8 +8,8 @@ class horario extends Model
 {
      const CREATED_AT = null;
      const UPDATED_AT = null;
-     protected $primaryKey = 'ima_id';
-     protected $table = 'neg_imagenes';
+     protected $table = 'neg_horario';
+     protected $primaryKey = 'hor_id';
 
     /**
      * The attributes that are mass assignable.
@@ -31,8 +31,19 @@ class horario extends Model
      * @var array
      */
     protected $guarded = [];
-    
-    public function negocio() {
-        return $this->belongsTo('App\Models\negocio', 'ima_neg_fk', 'neg_id');
+
+    public function detalle() {
+        return $this->hasMany('App\Models\horario_det', 'hord_hor_fk', 'hor_id');
+    }
+
+    public function detalledia() {
+        return $this->belongsTo('App\Models\horario_det', 'hor_id', 'hord_hor_fk')->where('hord_dia', date("w"));
+    }
+
+    public function estaAbierto($inicio, $fin){
+        $inicio = date('U', strtotime($inicio));
+        $fin = date('U',strtotime($fin));
+        $now = date('U');
+        return ($now >= $inicio) && ($now < $fin);
     }
 }
