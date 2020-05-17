@@ -2,10 +2,8 @@
 namespace App\Clases;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\Permiso;
-use App\Models\Modulo;
-use App\Models\Submodulo;
-use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
+use App\Models\horario;
 
 class Util
 {
@@ -43,4 +41,28 @@ class Util
        }
        return "0";
      }
+
+
+     /**
+      * funcion que retorna el horario de un día específico pasando el id del mismo
+      */
+     public static function HORARIO_DEL_DIA(int $id){
+        $dias = ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
+        return horario::where('hor_id', $id)->select("hor_ini_{$dias[date("w")]} AS inicio", "hor_fin_{$dias[date("w")]} AS fin", "hor_cer_{$dias[date("w")]} AS cerrado")->first();
+     }
+
+
+     public static function ESTA_ABIERTO($inicio, $fin){
+        $inicio = date('U', strtotime($inicio));
+        $fin = date('U',strtotime($fin));
+        $now = date('U');
+        return ($now >= $inicio) && ($now < $fin);
+    }
+
+    /**
+     * Función para retornar el formato de las horas
+     */
+    public static function FH($hora){
+        return date('h:iA', strtotime($hora));
+    }
 }

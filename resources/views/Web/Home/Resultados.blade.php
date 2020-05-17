@@ -42,20 +42,27 @@
                 </div>
                 <div>
                     <h5 class="">No se encontaron resultados para la búsqueda:  <span class="small text-muted"> {{ $query }} </span></h5>
-                    <span class="small"> Si este negocio es tuyo agrégalo... <a href=" {{ route('app.negocio.nuevo.get') }} "> <i class="fa fa-plus"></i> Nuevo negocio  </a> </span>
+                    <span class="small"> Si éste negocio es tuyo agrégalo... <a href=" {{ route('app.negocio.nuevo.get') }} "> <i class="fa fa-plus"></i> Nuevo negocio  </a> </span>
                 </div>
             </div>
         @else
             @foreach ($negocios as $neg)
-                    @php
-                        $horario = $neg->horario->detalledia;
-                    @endphp
-
                     <div class="media text-muted pt-3 hover">
-                        <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
+                        @if(empty($neg->neg_logo))
+                            <img src=" {{ asset('imagenes/utiles/cube.svg') }}" width="50" alt="Negocio" class="mr-2">
+                        @else
+                            <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
+                        @endif
+
                         <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                             <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.negocio", $neg->neg_nombre_corto) }} " class="text-primary"> {{ $neg->neg_nombre_completo }} </a> </strong>
-                            <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle {{ $neg->horario->estaAbierto($horario->hord_inicio, $horario->hord_fin) ? "text-success" : "text-danger" }}"></i>  {{ $neg->horario->estaAbierto($horario->hord_inicio, $horario->hord_fin) ? "ABIERTO" : "CERRADO" }} | {{ date('h:iA', strtotime($neg->horario->detalledia->hord_inicio)) }} - {{ date('h:iA', strtotime($neg->horario->detalledia->hord_fin)) }} </pre> </span>
+                            @php $horario = Util::HORARIO_DEL_DIA($neg->neg_hor_fk); @endphp
+                            @if ($horario->cerrado)
+                                <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle"></i> CERRADO TODO EL DÍA </span>
+                            @else
+                                <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle {{ Util::ESTA_ABIERTO($horario->inicio, $horario->fin) ? "text-success" : "text-danger" }}"></i>  {{ Util::ESTA_ABIERTO($horario->inicio, $horario->fin) ? "ABIERTO" : "CERRADO" }} | {{ Util::FH($horario->inicio).' - '.Util::FH($horario->fin) }} </span>
+                            @endif
+
                             <span class="badge badge-dark"> {{ $neg->categoria->cat_nombre }} </span>
                             <span class="d-block text-dark" style="font-size: 0.9rem"> {{ $neg->neg_descripcion }} </span>
                             <span class="d-block" style="font-size: 0.7rem"> {{ $neg->municipio->departamento->dep_nombre }} | {{ $neg->municipio->mun_nombre }} | {{ $neg->neg_ubicacion }} </span>
@@ -65,15 +72,23 @@
 
                     @if ($neg->sucursales->count() > 0)
                         @foreach ($neg->sucursales as $suc)
-                            @php
-                                $horariosuc = $suc->horario->detalledia;
-                            @endphp
-
                             <div class="media text-muted pt-3 hover ml-5">
-                                <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
+                                {{-- <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded"> --}}
+                                @if(empty($neg->neg_logo))
+                                    <img src=" {{ asset('imagenes/utiles/cube.svg') }}" width="20" alt="Negocio" class="mr-2">
+                                @else
+                                    <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
+                                @endif
                                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                                     <strong class="d-block font-weight-normal" style="font-size: 1.2rem"> <a href=" {{ route("web.sucursal", [$neg->neg_nombre_corto, $suc->suc_nombre]) }} " class="text-primary"> {{ $suc->suc_nombre }}  </a> </strong>
-                                    <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle {{ $suc->horario->estaAbierto($horariosuc->hord_inicio, $horariosuc->hord_fin) ? "text-success" : "text-danger" }}"></i>  {{ $suc->horario->estaAbierto($horariosuc->hord_inicio, $horariosuc->hord_fin) ? "ABIERTO" : "CERRADO" }} | {{ date('h:iA', strtotime($horariosuc->hord_inicio)) }} - {{ date('h:iA', strtotime($horariosuc->hord_fin)) }} </pre> </span>
+
+                                    @php $horariosuc = Util::HORARIO_DEL_DIA($suc->suc_hor_fk); @endphp
+                                    @if ($horariosuc->cerrado)
+                                        <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle"></i> CERRADO TODO EL DÍA </span>
+                                    @else
+                                        <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle {{ Util::ESTA_ABIERTO($horariosuc->inicio, $horariosuc->fin) ? "text-success" : "text-danger" }}"></i>  {{ Util::ESTA_ABIERTO($horariosuc->inicio, $horariosuc->fin) ? "ABIERTO" : "CERRADO" }} | {{ Util::FH($horariosuc->inicio).' - '.Util::FH($horariosuc->fin) }} </span>
+                                    @endif
+
                                     <span class="d-block" style="font-size: 0.7rem"> {{ $suc->municipio->departamento->dep_nombre }} | {{ $suc->municipio->mun_nombre }} | {{ $suc->suc_ubicacion }} </span>
                                 </p>
                             </div>

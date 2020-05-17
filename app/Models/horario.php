@@ -37,13 +37,17 @@ class horario extends Model
     protected $dates = ['hor_ini_lun','hor_fin_lun','hor_ini_mar','hor_fin_mar','hor_ini_mie','hor_fin_mie','hor_ini_jue','hor_fin_jue','hor_ini_vie','hor_fin_vie','hor_ini_sab','hor_fin_sab','hor_ini_dom','hor_fin_dom','hor_fecha_creacion','hor_fecha_modificacion'];
 
 
+    // public function getFromDateAttribute($value) {
+    //     return \Carbon\Carbon::parse($value)->format('h:iA');
+    // }
+
     /**
      * Función para saber si el negocio esta abierto en un momento determinado
      */
-    public function estaAbierto($dia){
-        $inicio = date('U', strtotime($inicio));
-        $fin = date('U',strtotime($fin));
-        $now = date('U');
-        return ($now >= $inicio) && ($now < $fin);
-    }
+    // public function estaAbierto($dia){
+    //     $inicio = date('U', strtotime($inicio));
+    //     $fin = date('U',strtotime($fin));
+    //     $now = date('U');
+    //     return ($now >= $inicio) && ($now < $fin);
+    // }
 }

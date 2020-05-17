@@ -12,7 +12,11 @@
         </div>
 
         <div class="px-3 pb-3">
-            <small> {{ $negocio->neg_nombre_completo }} </small>
+            @if (empty($negocio->neg_logo))
+                <small> {{ $negocio->neg_nombre_completo }} </small>
+            @else
+                <img class="" src=" {{ asset("imagenes/negocios/".$negocio->neg_logo) }} " alt="Logo - {{ $negocio->neg_nombre_corto }}" width="100">
+            @endif
             <h2 class="mb-0 text-title"> {{ $sucursal->suc_nombre }} </h2>
             <p class="pt-0"> {{ $negocio->neg_descripcion }} </p>
         </div>
@@ -47,7 +51,12 @@
 
             <div class="collapse show p-3" data-parent="#infohorarios" id="infohorariosOne">
                 <div class="pb-3">
-                    <span class="badge badge-pill badge-success">Abierto</span>
+                    @php $horario = Util::HORARIO_DEL_DIA($sucursal->suc_hor_fk); @endphp
+                    @if ($horario->cerrado)
+                        <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle"></i> CERRADO TODO EL DÍA </span>
+                    @else
+                        <span class="d-block text-dark" style="font-size: 0.7rem"> <i class="fa fa-circle {{ Util::ESTA_ABIERTO($horario->inicio, $horario->fin) ? "text-success" : "text-danger" }}"></i>  {{ Util::ESTA_ABIERTO($horario->inicio, $horario->fin) ? "ABIERTO" : "CERRADO" }} | {{ Util::FH($horario->inicio).' - '.Util::FH($horario->fin) }} </span>
+                    @endif
                 </div>
                 <table class="table table-sm">
                     <thead class="thead-light">
@@ -59,37 +68,67 @@
                     </thead>
                     <tbody>
                         <tr class="{{ Date("w") == 1 ? 'table-info' : "" }}">
-                            <th scope="row">Lunes</th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            <th scope="row">Lunes </th>
+                            @if($sucursal->horario->hor_cer_lun)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_lun) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_lun) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 2 ? 'table-info' : "" }}">
                             <th scope="row">Martes</th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            @if($sucursal->horario->hor_cer_mar)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_mar) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_mar) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 3 ? 'table-info' : "" }}">
                             <th scope="row">Miercoles</th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            @if($sucursal->horario->hor_cer_mie)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_mie) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_mie) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 4 ? 'table-info' : "" }}">
                             <th scope="row">Jueves</th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            @if($sucursal->horario->hor_cer_jue)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_jue) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_jue) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 5 ? 'table-info' : "" }}">
                             <th scope="row">Viernes</th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            @if($sucursal->horario->hor_cer_vie)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_vie) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_vie) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 6 ? 'table-info' : "" }}">
                             <th scope="row">Sábado</th>
-                            <td colspan="2">Cerrado</td>
+                            @if($sucursal->horario->hor_cer_sab)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_sab) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_sab) }} </td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 0 ? 'table-info' : "" }}">
                             <th scope="row">Domingo</th>
-                            <td colspan="2">Cerrado</td>
+                            @if($sucursal->horario->hor_cer_dom)
+                                <td colspan="2">CERRADO TODO EL DÍA </td>
+                            @else
+                                <td> {{ Util::FH($sucursal->horario->hor_ini_dom) }} </td>
+                                <td> {{ Util::FH($sucursal->horario->hor_fin_dom) }} </td>
+                            @endif
                         </tr>
                     </tbody>
                 </table>
@@ -204,7 +243,7 @@
             color: #fff !important;
         }
         .text-title{
-            font-size: 55px;
+            font-size: 40px;
             line-height: 1.125;
             font-weight: 600;
             letter-spacing: .004em;
