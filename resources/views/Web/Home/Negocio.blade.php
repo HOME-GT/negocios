@@ -7,7 +7,6 @@
                 <div class="col-md-12 d-flex align-items-center justify-content-center">
                     <img class="d-inline mr-2" src=" {{ asset("imagenes/negocios/".$negocio->neg_logo) }} " alt="Logo - {{ $negocio->neg_nombre_corto }}" width="150">
                     <h1 class="d-inline text-title">  {{ $negocio->neg_nombre_completo }} </h1>
-                    {{-- <span class="badge badge-pill badge-success">Abierto</span> --}}
                 </div>
             </div>
         </div>
@@ -200,8 +199,8 @@
 
                 <div class="pt-3">
                     <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left-danger"> Procedimiento de compra</div>
-                    {{-- <p> {{ $negocio->covid19->cov_procedimiento }} </p> --}}
-                    <p>
+                    <p> {{ $negocio->covid19->cov_procedimiento }} </p>
+                    {{-- <p>
                         <ol>
                             <li>Uso obligatorio de mascarilla.</li>
                             <li>Aplicación de alcohol en gel.</li>
@@ -209,7 +208,7 @@
                             <li>Solo se permiten 3 personas dentro del sitio. Debes hacer cola con la distancia señalizada.</li>
                             <li>Debes estar a 1metro de distancia de nuestro personal. </li>
                         </ol>
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
@@ -223,9 +222,13 @@
                 HORARIOS <span class="float-right"> <i class="fa fa-minus"></i></span>
             </div>
 
+            @php
+                $horario = $negocio->horario->detalledia;
+            @endphp
+
             <div class="collapse show p-3" data-parent="#infohorarios" id="infohorariosOne">
                 <div class="pb-3">
-                    <span class="badge badge-pill badge-success">Abierto</span>
+                    <span class="d-block text-dark"> <i class="fa fa-circle {{ $negocio->horario->estaAbierto($horario->hord_inicio, $horario->hord_fin) ? "text-success" : "text-danger" }}"></i>  {{ $negocio->horario->estaAbierto($horario->hord_inicio, $horario->hord_fin) ? "ABIERTO" : "CERRADO" }} </pre> </span>
                 </div>
                 <table class="table table-sm">
                     <thead class="thead-light">
@@ -238,8 +241,12 @@
                     <tbody>
                         <tr class="{{ Date("w") == 1 ? 'table-info' : "" }}">
                             <th scope="row">Lunes </th>
-                            <td>10:00 AM</td>
-                            <td>11:00 PM</td>
+                            @if( !$negocio->horario->estaCerrado($negocio->horario->detalledia(1)->hord_inicio, $negocio->horario->detalledia(1)->hord_fin) )
+                                <td> {{ date('h:iA', strtotime($negocio->horario->detalledia(1)->hord_inicio)) }} </td>
+                                <td> {{ date('h:iA', strtotime($negocio->horario->detalledia(1)->hord_fin)) }} </td>
+                            @else
+                                <td colspan="2">Cerrado</td>
+                            @endif
                         </tr>
                         <tr class="{{ Date("w") == 2 ? 'table-info' : "" }}">
                             <th scope="row">Martes</th>

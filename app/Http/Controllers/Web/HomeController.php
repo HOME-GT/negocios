@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\negocio;
 use App\Models\sucursales;
 use App\Models\municipio;
+
 
 class HomeController extends Controller
 {
@@ -26,37 +28,52 @@ class HomeController extends Controller
         $municipio      = ($request->query('municipio') ? $request->query('municipio') : 0);
 
         if($query != ""){
-            $negocios = negocio::where(function($sql) use ($categoria, $departamento, $municipio){
-                            if($categoria > 0){
-                                $sql->where('neg_cat_fk', $categoria);
-                            }
-                            if($municipio > 0){
-                                $sql->where('neg_mun_fk', $municipio);
-                            }
-                            if($municipio == 0 && $departamento > 0){
-                                $sql->whereIn('neg_mun_fk',  municipio::where('mun_dep_fk', $departamento)->pluck('mun_id'));
-                            }
-                        })
-                        ->where(function($sql) use ($query){
-                            if($query != ""){
-                                $sql->where('neg_nombre_completo', 'like', "%{$query}%");
-                                $sql->orWhere('neg_nombre_corto', 'like', "%{$query}%");
-                                $sql->orWhere('neg_descripcion', 'like', "%{$query}%");
-                                $sql->orWhere('neg_ubicacion', 'like', "%{$query}%");
-                            }
-                        })
-                        ->with(array('sucursales' => function($sql) use ($departamento, $municipio){
-                            if($municipio > 0){
-                                $sql->where('suc_mun_fk', $municipio);
-                            }
-                            if($municipio == 0 && $departamento > 0){
-                                $sql->whereIn('suc_mun_fk',  municipio::where('mun_dep_fk', $departamento)->pluck('mun_id'));
-                            }
-                        }))
-                        ->paginate(5);
+
+            $sucursales = sucursales::where(function($sql) use ($categoria, $departamento, $municipio){
+                if($categoria > 0){ $sql->whereIn('suc_neg_fk', negocio::where('neg_cat_fk', $categoria)->pluck('neg_id')); }
+                if($municipio > 0){ $sql->where('suc_mun_fk', $municipio); }
+                if($municipio == 0 && $departamento > 0){ $sql->whereIn('suc_mun_fk',  municipio::where('mun_dep_fk', $departamento)->pluck('mun_id')); }
+            })
+            ->where(function($sql) use ($query){
+                    $sql->orWhere('suc_nombre', 'like', "%{$query}%");
+                    $sql->orWhere('suc_ubicacion', 'like', "%{$query}%");
+            })->distinct()->pluck('suc_neg_fk');
+
+            $negocios = negocio::where(function($sql) use ($query, $sucursales, $categoria, $departamento, $municipio){
+                if($categoria > 0){
+                    $sql->orWhere('neg_cat_fk', $categoria);
+                }
+                if($municipio > 0){
+                    $sql->orWhere('neg_mun_fk', $municipio);
+                }
+                if($municipio == 0 && $departamento > 0){
+                    $sql->orWhereIn('neg_mun_fk',  municipio::where('mun_dep_fk', $departamento)->pluck('mun_id'));
+                }
+                $sql->orWhere('neg_nombre_completo', 'like', "%{$query}%");
+                $sql->orWhereIn('neg_id', $sucursales);
+                $sql->orWhere('neg_nombre_corto', 'like', "%{$query}%");
+                $sql->orWhere('neg_descripcion', 'like', "%{$query}%");
+                $sql->orWhere('neg_ubicacion', 'like', "%{$query}%");
+            })
+            ->with(array('sucursales' => function($sql) use ($departamento, $municipio, $query){
+                if($municipio > 0){
+                    $sql->orwhere('suc_mun_fk', $municipio);
+                }
+                if($municipio == 0 && $departamento > 0){
+                    $sql->orwhereIn('suc_mun_fk',  municipio::where('mun_dep_fk', $departamento)->pluck('mun_id'));
+                }
+                $sql->orWhere('suc_nombre', 'like', "%{$query}%");
+                $sql->orWhere('suc_ubicacion', 'like', "%{$query}%");
+            }))->paginate(5);
+
+
+            // $_sql = $tmpnegocios->toSql();
+            // $_sql = Str::replaceArray('?', $tmpnegocios->getBindings(), $tmpnegocios->toSql());
+            // $negocios = $tmpnegocios->paginate(5);
         }
         else{
             $negocios = [];
+            $sucursales = [];
         }
 
         return view("Web.Home.Resultados", [
@@ -64,7 +81,7 @@ class HomeController extends Controller
             'categoria' => $categoria,
             'departamento' => $departamento,
             'municipio' => $municipio,
-            'negocios' => $negocios,
+            'negocios' => $negocios
         ]);
     }
 
