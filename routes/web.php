@@ -41,7 +41,11 @@ Route::namespace('Web')->group(function(){
 
 Route::namespace('App')->group(function(){
     Route::name('app.')->prefix("app")->middleware(['middleware' => 'auth'])->group(function(){
-        Route::get('/', function(){ return view("App.Home"); })->name("home");
+        Route::get('home', function(){ return view("App.Home"); })->name("home.get");
+
+        Route::name('perfil.')->prefix("perfil")->group(function(){
+            Route::View('/', 'App.Perfil.Index')->name("perfil.get");
+        });
 
         Route::name('negocio.')->prefix("negocio")->group(function(){
             Route::get('/', 'NegocioController@ListadoView')->name("listado.get");
