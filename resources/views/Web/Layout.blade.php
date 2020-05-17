@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="description" content="Resultados de las busquedas en el portal de negocios para guatemala por COVID-19">
+        <meta name="description" content=" {{ ucfirst($description ?? 'Busque negocios guatemaltecos de todas las categorías. NegociosGT tiene muchas características para ayudarlo a encontar el negocio que exactamente esta buscando.') }}">
         <meta name="author" content="http://home.com.gt/">
         <title> {{ ucfirst($title ?? 'NegociosGT') }} </title>
 

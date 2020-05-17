@@ -1,4 +1,4 @@
-@extends('Web.Layout', ['title' => $negocio->neg_nombre_completo])
+@extends('Web.Layout', ['title' => $negocio->neg_nombre_completo, 'description'=> $negocio->neg_nombre_completo.' - '.$negocio->neg_descripcion ])
 
 @section('Main')
     <div class="bg-white shadow-sm mt-3 rounded">
@@ -458,7 +458,29 @@
      <script src="{{ asset("js/libs/galeria/themes/azur/galleria.azur.min.js") }}"></script>
      <script>
             $(function() {
-              Galleria.run('.galleria');
+              Galleria.run('.galleria', {
+                    // Set this to false if you want to have captions visible all the time
+                    _toggleCaption: true,
+
+                    // Toggles tooltip
+                    _showTooltip: true,
+
+                    // Sets this to false if you don’t want to show the captions initially
+                    _showCaption: false,
+
+                    // Localized strings, modify these if you want tooltips in your language
+                    _locale: {
+                        show_captions: 'Mostar subtitulos',
+                        hide_captions: 'Ocultar subtitulos',
+                        play: 'Iniciar presentación',
+                        pause: 'Pausar la presentación',
+                        enter_fullscreen: 'Entrar en pantalla completa',
+                        exit_fullscreen: 'Salir de pantalla completa',
+                        next: 'Siguiente imagen',
+                        prev: 'Anterior imagen',
+                        showing_image: 'Mostrar imagen %s de %s'
+                    }
+              });
               $("[data-toggle='collapse']").click(function(){
                 let id = $(this).data("target");
 

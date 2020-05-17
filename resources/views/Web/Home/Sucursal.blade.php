@@ -1,4 +1,4 @@
-@extends('Web.Layout', ['title' => $negocio->neg_nombre_corto.' - '.$sucursal->suc_nombre])
+@extends('Web.Layout', ['title' => $negocio->neg_nombre_corto.' - '.$sucursal->suc_nombre, 'description'=> $sucursal->suc_nombre.' - '.$negocio->neg_descripcion])
 
 @section('Main')
     <div class="bg-white shadow-sm mt-3 rounded">

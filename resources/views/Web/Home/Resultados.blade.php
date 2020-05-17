@@ -1,4 +1,4 @@
-@extends('Web.Layout', ['title'=> $query ? $query.' - NegociosGT Búsqueda' : 'NegociosGT Búsqueda' ])
+@extends('Web.Layout', ['title'=> $query ? $query.' - Buscar con NegociosGT' : 'Buscar con NegociosGT'])
 
 @section('Main')
 
@@ -42,14 +42,14 @@
                 </div>
                 <div>
                     <h5 class="">No se encontaron resultados para la búsqueda:  <span class="small text-muted"> {{ $query }} </span></h5>
-                    <span class="small"> Si éste negocio es tuyo agrégalo... <a href=" {{ route('app.negocio.nuevo.get') }} "> <i class="fa fa-plus"></i> Nuevo negocio  </a> </span>
+                    <span class="small"> Si éste negocio es tuyo agrégalo (es gratis)... <a href=" {{ route('app.negocio.nuevo.get') }} "> <i class="fa fa-plus"></i> Nuevo negocio  </a> </span>
                 </div>
             </div>
         @else
             @foreach ($negocios as $neg)
                     <div class="media text-muted pt-3 hover">
                         @if(empty($neg->neg_logo))
-                            <img src=" {{ asset('imagenes/utiles/cube.svg') }}" width="50" alt="Negocio" class="mr-2">
+                            <img src=" {{ asset('imagenes/utiles/logo_general.svg') }}" width="50" alt="Negocio" class="mr-2">
                         @else
                             <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
                         @endif
@@ -75,7 +75,7 @@
                             <div class="media text-muted pt-3 hover ml-5">
                                 {{-- <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded"> --}}
                                 @if(empty($neg->neg_logo))
-                                    <img src=" {{ asset('imagenes/utiles/cube.svg') }}" width="20" alt="Negocio" class="mr-2">
+                                    <img src=" {{ asset('imagenes/utiles/logo_general.svg') }}" width="20" alt="Negocio" class="mr-2">
                                 @else
                                     <img src=" {{ asset('imagenes/negocios/'.$neg->neg_logo) }}" width="50" alt="Logo - {{ $neg->neg_nombre_corto }}" class="mr-2 rounded">
                                 @endif
