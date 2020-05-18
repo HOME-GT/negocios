@@ -1,6 +1,6 @@
 @extends('App.LayoutApp')
 @section('Main')
-    <div class="mt-3 p-3 bg-white shadow-sm rounded">
+    <div class="mt-3 p-3 bg-white shadow-sm rounded mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card mb-3" style="max-width: 540px;">
