@@ -49,9 +49,12 @@ Route::namespace('App')->group(function(){
 
         Route::name('negocio.')->prefix("negocio")->group(function(){
             Route::get('/', 'NegocioController@ListadoView')->name("listado.get");
+            Route::post('/', 'NegocioController@ListadoNegocio')->name('listado.post');
             Route::get('nuevo', 'NegocioController@NuevoView')->name("nuevo.get");
-            Route::get('edicion/{id}', 'NegocioController@EditarView')->name("edicion.get");
             Route::post('negocio', 'NegocioController@Nuevo')->name("nuevo.post");
+            Route::get('edicion/{neg}', 'NegocioController@EditarView')->name("edicion.get");
+            Route::post('edicion/{neg}', 'NegocioController@Editar')->name('edicion.post');
+            Route::post('eliminar/{neg}', 'NegocioController@EliminarNegocio')->name('eliminar.post');
         });
     });
 });

@@ -4,7 +4,7 @@
         <nav class="nav nav-underline">
             <a class="nav-link" href=" {{ route('app.home.get') }} "> Dashboard </a>
             <a class="nav-link" href=" {{ route('app.perfil.perfil.get') }} "> Perfil </a>
-            <a class="nav-link" href="#"> Negocios </a>
+            <a class="nav-link" href=" {{ route('app.negocio.listado.get') }}"> Negocios </a>
         </nav>
     </div>
 @endsection

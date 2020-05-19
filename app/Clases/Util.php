@@ -26,6 +26,23 @@ class Util
         return $time;
      }
 
+     public static function HOR_MIN_SEG_VIEW($date){
+        $tim = explode(" ", $date);
+        if ( $tim[1] == "00:00:00"){
+            $time = "";
+        }else{
+            $timeType = explode(" ", $tim[1]);
+            $timeItems = explode(":", $timeType[0]);
+            if($timeType[0] > 12){
+                $timeItems[0] -= 12;
+                $time =  $timeItems[0].":".$timeItems[1]." PM";
+            }else{
+                $time =  $timeItems[0].":".$timeItems[1]." AM";
+            }
+        }
+        return $time;
+     }
+
      public static function MONEDA($valor){
         if(!empty($valor)){
             $tmp = explode(".", $valor);

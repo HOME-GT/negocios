@@ -26,6 +26,7 @@
                             <label for="nombre_corto" class="small">
                                 <i class="fa fa-info-circle" data-toggle="popover" data-content="Nombre corto que usa la persona, institución, empresa o negocio que se desee crear, ejemplo: 'ALMAREFRI', 'LOS PANES'."></i>
                                 Nombre Corto
+                                <span class="text-danger">*</span>
                             </label>
                             <input type="text" id="nombre_corto" name="nombre_corto" class="form-control {{ $errors->has('nombre_corto') ? 'is-invalid' : '' }}" value="{{ old('nombre_corto') }}">
                             @if ($errors->has('nombre_corto'))
@@ -39,7 +40,6 @@
                             <label for="descripcion" class="small">
                                 <i class="fa fa-info-circle" data-toggle="popover" data-content="Descripción general de la empresa o negocio, a que se dedica, su especialidad o su experiencia en el producto o servicio."></i>
                                 Descripción
-                                <span class="text-danger">*</span>
                             </label>
                             <input type="text" id="descripcion" name="descripcion" class="form-control {{ $errors->has('descripcion') ? 'is-invalid' : '' }}" value="{{ old('descripcion') }}">
                             @if ($errors->has('descripcion'))
@@ -499,7 +499,7 @@
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" id="preciomotos" name="preciomotos" placeholder="Precio" class="form-control form-control-sm {{ $errors->has('preciomotos') ? 'is-invalid' : '' }}" value="{{ old('preciomotos')}}">
+                            <input type="text" id="preciomotos" name="preciomotos" placeholder="Precio" class="form-control form-control-sm  text-right {{ $errors->has('preciomotos') ? 'is-invalid' : '' }}" value="{{ old('preciomotos')}}">
                             @if ($errors->has('preciomotos'))
                                 <span class="invalid-feedback" role="alert"> {{ $errors->first('preciomotos') }} </span>
                             @endif
@@ -520,7 +520,7 @@
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" id="preciocarros" name="preciocarros" placeholder="Precio" class="form-control form-control-sm  {{ $errors->has('preciocarros') ? 'is-invalid' : '' }}" value="{{ old('preciocarros')}}">
+                            <input type="text" id="preciocarros" name="preciocarros" placeholder="Precio" class="form-control form-control-sm   text-right {{ $errors->has('preciocarros') ? 'is-invalid' : '' }}" value="{{ old('preciocarros')}}">
                             @if ($errors->has('preciocarros'))
                                 <span class="invalid-feedback" role="alert"> {{ $errors->first('preciocarros') }} </span>
                             @endif
@@ -541,7 +541,7 @@
                         </div>
                         <div class="col-sm-5">
                             <small class="form-text">Precio</small>
-                            <input type="text" id="preciodiscapacitados" name="preciodiscapacitados" placeholder="Precio" class="form-control form-control-sm  {{ $errors->has('preciodiscapacitados') ? 'is-invalid' : '' }}" value="{{ old('preciodiscapacitados')}}">
+                            <input type="text" id="preciodiscapacitados" name="preciodiscapacitados" placeholder="Precio" class="form-control form-control-sm  text-right  {{ $errors->has('preciodiscapacitados') ? 'is-invalid' : '' }}" value="{{ old('preciodiscapacitados')}}">
                             @if ($errors->has('preciodiscapacitados'))
                                 <span class="invalid-feedback" role="alert"> {{ $errors->first('preciodiscapacitados') }} </span>
                             @endif
@@ -581,14 +581,14 @@
                 <div class="collapse show mb-2" data-parent="#infocovid19" id="infocovid19One">
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="mascarilla" checked>
+                            <input type="checkbox" class="custom-control-input" id="mascarilla"  {{(old("mascarilla") != null ? "checked":"")}}>
                             <label class="custom-control-label" for="mascarilla">¿Es requida la mascarrilla? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click acá si es obligatorio el uso de la mascarilla para el ingreso al negocio."></i></label>
                           </div>
                     </div>
 
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="guantes">
+                            <input type="checkbox" class="custom-control-input" id="guantes"  {{(old("guantes") != null ? "checked":"")}}>
                             <label class="custom-control-label" for="guantes">¿Son requedios los guantes? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click aca si es obligatorio el uso de guantes para el ingreso al negocio."></i></label>
                           </div>
                     </div>
@@ -673,7 +673,7 @@
         }
 
         function _initMascaraMoneda(_selector){
-            $("#"+_selector).addClass("text-right").val(0);
+            //$("#"+_selector).addClass("text-right").val(0);
             var currencyMask = IMask(document.getElementById(_selector),
                 {
                     mask: 'Qnum',
