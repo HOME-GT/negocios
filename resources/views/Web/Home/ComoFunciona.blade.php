@@ -14,21 +14,21 @@
             <div class="col-md-8 border-left px-5 pt-md-2 order-2">
                 <div class="mt-5 d-block d-block d-sm-none"></div>
                 <h2 class="text-primary">Crear Cuenta</h2>
-                <p>Para poder acceder a todas las funcionalidades del sitio NegociosGt, necesitas registrarte, se te solicitara información personal, la cual nos ayudara a tener información precisa y confiable, para que nuestros servicios sean de mucha utilidad.</p>
+                <p>Para poder acceder a todas las funcionalidades del sitio NegociosGt, necesitas registrarte, se te solicitara información personal, la cual nos ayudará a tener información precisa y confiable, para que nuestros servicios sean de mucha utilidad.</p>
                 <ul class="list-unstyled">
-                    <li>Los datos que se te solicitaran para el registro se detallan a continuación:</li>
+                    <li>Los datos que se te solicitarán para el registro se detallan a continuación:</li>
                     <ol>
                         <li>Accede al sitio <a href="http://negocios.com.gt/registro" target="_blank">negocios.com.gt/registro</a></li>
                         <li>En la casilla que se indica ingresa tus Nombres </li>
                         <li>En la casilla que se indica ingresa tus Apellidos</li>
-                        <li>Ingresa el CUI, el cual se verificara si es correcto de acuerdo al Registro Nacional de las Personas</li>
+                        <li>Ingresa el CUI, el cual se verificará si es correcto de acuerdo al Registro Nacional de las Personas</li>
                         <li>Ingresa una dirección de correo electrónico en el cual se te enviara la notificación correspondiente del registro</li>
                         <li>Ingresa tu numero de teléfono</li>
                         <li>Ingresa una contraseña, la cual te servirá para iniciar sesión al sitio NegoicosGT</li>
                         <li>Confirma la contraseña ingresada con anterioridad</li>
                         <li>Acepta los términos y condiciones, en la cual se regula la relación con los usuarios del sitio NegociosGT, de acuerdo al contenido y los servicios que se presta</li>
                         <li>Dale Click al botón registro</li>
-                        <li>Posteriormente se te enviara a tu correo electrónico la confirmación de tu registro y ya podrás iniciar sesión y utilizar todas las funcionalidades del sitio</li>
+                        <li>Posteriormente se te enviará a tu correo electrónico la confirmación de tu registro y ya podrás iniciar sesión y utilizar todas las funcionalidades del sitio</li>
                     </ol>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
             <div class="col-md-8 px-5 order-md-1 order-2">
                 <div class="mt-5 d-block d-block d-sm-none"></div>
                 <h2 class="text-primary">Agregar Negocio</h2>
-                <p>Para poder agregar un negocio necesitas estar registrado e iniciar sesión, se te pedirá que llenes todos los campos obligatorios del formulario para registro de negocios. <br> El formulario esta dividido en 7 secciones las cuales te pedirán información correspondiente a tu negocio, con la cual te encontrarán los clientes en las determinadas búsquedas, las cuales se detallan a continuación:</p>
+                <p>Para poder agregar un negocio necesitas estar registrado e iniciar sesión, se te pedirá que llenes todos los campos obligatorios del formulario para registro de negocios. <br> El formulario está dividido en 7 secciones las cuales te pedirán información correspondiente a tu negocio, con la cual te encontrarán los clientes en las determinadas búsquedas, las cuales se detallan a continuación:</p>
                 <ul class="list-unstyled">
                     <li class="font-weight-bold">1. INFORMACION GENERAL</li>
                     <li>En esta sección se te pedirá información importante de tu negocio, como el nombre, categoría, dirección y ubicación donde se encuentra el negocio.</li>
