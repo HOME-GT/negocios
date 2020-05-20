@@ -205,8 +205,8 @@
 
                 <div class="pt-3">
                     <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left-danger"> Procedimiento de compra</div>
-                    <p> {{ $negocio->covid19->cov_procedimiento }} </p>
-                    {{-- <p>
+                    {{-- <p> {{ $negocio->covid19->cov_procedimiento }} </p> --}}
+                    <p>
                         <ol>
                             <li>Uso obligatorio de mascarilla.</li>
                             <li>Aplicación de alcohol en gel.</li>
@@ -214,7 +214,7 @@
                             <li>Solo se permiten 3 personas dentro del sitio. Debes hacer cola con la distancia señalizada.</li>
                             <li>Debes estar a 1metro de distancia de nuestro personal. </li>
                         </ol>
-                    </p> --}}
+                    </p>
                 </div>
             </div>
         </div>
