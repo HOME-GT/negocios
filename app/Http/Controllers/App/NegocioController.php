@@ -34,8 +34,9 @@ class NegocioController extends Controller
         return Datatables::of(negocio::all())
            ->addIndexColumn()
            ->addColumn('action', function($row){
-            $botones = '<a href="'.route("app.negocio.edicion.get", $row->neg_id).'" class="btn btn-secondary btn-sm btn-icon" title="Editar">Editar</a>';
-            $botones = $botones."<a href=\"javascript:BorrarRegistro('".route("app.negocio.eliminar.post", $row->neg_id)."', '".htmlspecialchars(addslashes($row->neg_nombre_completo))."')\" class='btn btn-danger btn-sm btn-icon rounded-0 mx-0 text-white' title='Eliminar'>Eliminar</a>";
+            $botones = '<a href="'.route("app.negocio.edicion.get", $row->neg_id).'" class="btn btn-secondary btn-sm rounded-0" title="Editar">Editar</a>';
+            $botones = $botones."<a href='#' class='btn btn-dark btn-sm rounded-0 mx-0 text-white' title='Eliminar'>Sucursales</a>";
+            $botones = $botones."<a href=\"javascript:BorrarRegistro('".route("app.negocio.eliminar.post", $row->neg_id)."', '".htmlspecialchars(addslashes($row->neg_nombre_completo))."')\" class='btn btn-danger btn-sm rounded-0 mx-0 text-white' title='Eliminar'>Eliminar</a>";
             return $botones;
             })
             ->editColumn('neg_servicio_dominicio', function(negocio $neg) {

@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.4/build/css/themes/default.min.css"/>
         <link rel="stylesheet" href="{{ asset("css/main.css") }}">
         @yield('css')
+        @yield('cssApp')
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark shadow-sm">
@@ -76,5 +77,6 @@
         <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.4/build/alertify.min.js"></script>
         <script src=" {{ asset("js/main.js") }} "></script>
         @yield('js')
+        @yield('jsApp')
     </body>
 </html>
