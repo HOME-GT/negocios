@@ -45,6 +45,8 @@ Route::namespace('App')->group(function(){
 
         Route::name('perfil.')->prefix("perfil")->group(function(){
             Route::View('/', 'App.Perfil.Index')->name("perfil.get");
+            Route::View('cambio-clave', 'App.Perfil.CambioClave')->name("cambioclave.get");
+            Route::View('eliminar-cuenta', 'App.Perfil.EliminarCuenta')->name("eliminarcuenta.get");
         });
 
         Route::name('negocio.')->prefix("negocio")->group(function(){
@@ -55,6 +57,12 @@ Route::namespace('App')->group(function(){
             Route::get('edicion/{neg}', 'NegocioController@EditarView')->name("edicion.get");
             Route::post('edicion/{neg}', 'NegocioController@Editar')->name('edicion.post');
             Route::post('eliminar/{neg}', 'NegocioController@EliminarNegocio')->name('eliminar.post');
+        });
+
+        Route::name('sucursales.')->prefix("sucursales")->group(function(){
+            Route::View('/', 'App.Sucursales.Listado')->name("listado.get");
+            Route::View('nuevo', 'App.Sucursales.Nuevo')->name("nuevo.get");
+            Route::View('editar', 'App.Sucursales.Editar')->name("editar.get");
         });
     });
 });
