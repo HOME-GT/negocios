@@ -212,9 +212,10 @@
                         <div class="">
                             <div class="m-0 p-0 small text-uppercase font-weight-bold text-dark pl-1 border-left">  <i class="fa fa-map-marked-alt"></i> Google Maps</div>
                             <div class="pt-2">
-                                @if (!empty($sucursal->contacto->con_google_maps))
+                                {{-- @if (!empty($sucursal->contacto->con_google_maps))
                                     <iframe src=" {{ $sucursal->contacto->con_google_maps }} " width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                                @endif
+                                @endif --}}
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31204.968841382324!2d-90.50910972950643!3d14.640281742242724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4207b3704ab2d4bd!2sSupermercado%20La%20Torre!5e0!3m2!1sen!2sgt!4v1590003010290!5m2!1sen!2sgt" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                             </div>
                         </div>
                     </div>
