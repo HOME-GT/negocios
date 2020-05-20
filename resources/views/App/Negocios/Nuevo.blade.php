@@ -581,14 +581,14 @@
                 <div class="collapse show mb-2" data-parent="#infocovid19" id="infocovid19One">
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="mascarilla"  {{(old("mascarilla") != null ? "checked":"")}}>
+                            <input type="checkbox" class="custom-control-input" id="mascarilla" name="mascarilla"  {{(old("mascarilla") != null ? "checked":"")}}>
                             <label class="custom-control-label" for="mascarilla">¿Es requida la mascarrilla? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click acá si es obligatorio el uso de la mascarilla para el ingreso al negocio."></i></label>
                           </div>
                     </div>
 
                     <div class="form-group col-md-12">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="guantes"  {{(old("guantes") != null ? "checked":"")}}>
+                            <input type="checkbox" class="custom-control-input" id="guantes" name="guantes"   {{(old("guantes") != null ? "checked":"")}}>
                             <label class="custom-control-label" for="guantes">¿Son requedios los guantes? <i class="fa fa-info-circle" data-toggle="popover" data-content="Click aca si es obligatorio el uso de guantes para el ingreso al negocio."></i></label>
                           </div>
                     </div>

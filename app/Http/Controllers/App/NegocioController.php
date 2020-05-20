@@ -239,14 +239,8 @@ class NegocioController extends Controller
             $fpaid = 0;
             $parid = 0;
             $covid = 0;
-            DB::transaction(function () use ($data, &$neg, &$negid, &$conid, &$horid, &$fpaid, &$parid, &$covid){
-/*
-                DB::table('neg_contacto')->where('con_id', $neg->neg_con_fk)->delete();
-                DB::table('neg_horario')->where('hor_id', $neg->neg_hor_fk)->delete();
-                DB::table('neg_formas_pago')->where('fpa_id', $neg->neg_fpa_fk)->delete();
-                DB::table('neg_parqueos')->where('par_id', $neg->neg_par_fk)->delete();
-                DB::table('neg_covid19')->where('cov_id', $neg->neg_cov_fk)->delete();
-*/
+            DB::transaction(function () use ($data, &$neg){
+
                 DB::table('neg_contacto')
                 ->where('con_id', $neg->neg_con_fk)
                 ->update([
@@ -366,6 +360,11 @@ class NegocioController extends Controller
         $ret = new RetornoAjax();
         try{
              $neg->delete();
+             DB::table('neg_contacto')->where('con_id', $neg->neg_con_fk)->delete();
+             DB::table('neg_horario')->where('hor_id', $neg->neg_hor_fk)->delete();
+             DB::table('neg_formas_pago')->where('fpa_id', $neg->neg_fpa_fk)->delete();
+             DB::table('neg_parqueos')->where('par_id', $neg->neg_par_fk)->delete();
+             DB::table('neg_covid19')->where('cov_id', $neg->neg_cov_fk)->delete();
              $ret->DefinirValores(true);
         }catch (QueryException $e){
              $ret->DefinirValores(false, $e->getCode() == "23000"?"El registro tiene transacciones en el sistema. No es posible borrarlo": $e->getMessage(),$e->getCode());
