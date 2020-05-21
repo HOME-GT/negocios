@@ -44,4 +44,9 @@ class sucursales extends Model
     public function contacto() {
         return $this->belongsTo('App\Models\contacto', 'suc_con_fk', 'con_id');
     }
+
+    public function negocio() {
+        return $this->belongsTo('App\Models\negocio', 'suc_neg_fk', 'neg_id');
+    }
+
 }

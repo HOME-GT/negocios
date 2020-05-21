@@ -60,9 +60,13 @@ Route::namespace('App')->group(function(){
         });
 
         Route::name('sucursales.')->prefix("sucursales")->group(function(){
-            Route::View('/', 'App.Sucursales.Listado')->name("listado.get");
-            Route::View('nuevo', 'App.Sucursales.Nuevo')->name("nuevo.get");
-            Route::View('editar', 'App.Sucursales.Editar')->name("editar.get");
+            Route::get('/{neg}', 'SucursalesController@ListadoView')->name("listado.get");
+            Route::post('/{neg}', 'SucursalesController@ListadoSucursal')->name('listado.post');
+            Route::get('nuevo/{neg}', 'SucursalesController@NuevoView')->name("nuevo.get");
+            Route::post('nuevo/{neg}', 'SucursalesController@Nuevo')->name("nuevo.post");
+            Route::get('edicion/{suc}', 'SucursalesController@EditarView')->name("edicion.get");
+            Route::post('edicion/{suc}', 'SucursalesController@Editar')->name('edicion.post');
+            Route::post('eliminar/{suc}', 'SucursalesController@EliminarSucursal')->name('eliminar.post');
         });
     });
 });

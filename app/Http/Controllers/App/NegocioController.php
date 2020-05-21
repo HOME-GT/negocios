@@ -35,7 +35,7 @@ class NegocioController extends Controller
            ->addIndexColumn()
            ->addColumn('action', function($row){
             $botones = '<a href="'.route("app.negocio.edicion.get", $row->neg_id).'" class="btn btn-secondary btn-sm rounded-0" title="Editar">Editar</a>';
-            $botones = $botones."<a href='#' class='btn btn-dark btn-sm rounded-0 mx-0 text-white' title='Eliminar'>Sucursales</a>";
+            $botones = $botones.'<a href="'.route("app.sucursales.listado.get", $row->neg_id).'" class="btn btn-dark btn-sm rounded-0 mx-0 text-white" title="Sucursales">Sucursales</a>';
             $botones = $botones."<a href=\"javascript:BorrarRegistro('".route("app.negocio.eliminar.post", $row->neg_id)."', '".htmlspecialchars(addslashes($row->neg_nombre_completo))."')\" class='btn btn-danger btn-sm rounded-0 mx-0 text-white' title='Eliminar'>Eliminar</a>";
             return $botones;
             })
@@ -69,16 +69,6 @@ class NegocioController extends Controller
                  'google_maps' => ['max:250','url','nullable'],
                  'whatsapp' => ['max:250'],
                  'direccion' => ['max:250'],
-
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
             ])->validate();
 
             $negid = 0;
@@ -222,24 +212,8 @@ class NegocioController extends Controller
                  'google_maps' => ['max:250','url','nullable'],
                  'whatsapp' => ['max:250'],
                  'direccion' => ['max:250'],
-
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
-                 'telefono2' => ['max:250'],
             ])->validate();
 
-            $negid = 0;
-            $conid = 0;
-            $horid = 0;
-            $fpaid = 0;
-            $parid = 0;
-            $covid = 0;
             DB::transaction(function () use ($data, &$neg){
 
                 DB::table('neg_contacto')
